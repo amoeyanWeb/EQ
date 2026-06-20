@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>اکولایزر زنده میکروفون</title>
+    <title>کنسول اکولایزر استودیو زنده</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <style>
       body {
@@ -12,20 +12,17 @@
           -apple-system,
           sans-serif;
       }
+      /* استایل اختصاصی برای حرکت عمودی و استاندارد اسلایدرها */
       .vertical-slider {
         writing-mode: vertical-lr;
         direction: ltr;
         vertical-align: middle;
         transform: rotate(180deg);
       }
-      .vertical-text {
-        writing-mode: vertical-rl;
-        transform: rotate(180deg);
-      }
     </style>
   </head>
   <body
-    class="bg-slate-950 text-slate-100 min-h-screen flex flex-col items-center justify-center p-4"
+    class="bg-slate-950 text-slate-100 min-h-screen flex flex-col items-center justify-center p-4 sm:p-8"
   >
     <div
       class="bg-slate-900 p-6 sm:p-8 rounded-2xl shadow-2xl w-full max-w-3xl border border-slate-800"
@@ -33,10 +30,10 @@
       <h1
         class="text-xl sm:text-2xl font-bold text-center mb-2 text-emerald-400"
       >
-        کنسول اکولایزر زنده (پردازش میکروفون)
+        کنسول اکولایزر زنده میکروفون (Layout استودیویی)
       </h1>
       <p class="text-center text-xs text-amber-500 mb-6 font-medium">
-        ⚠️ هشدار: قبل از شروع، حتماً هندزفری یا هدفون وصل کنید تا صدا سوت نکشد!
+        ⚠️ حتماً هندزفری وصل کنید تا از فیدبک و سوت کشیدن صدا جلوگیری شود!
       </p>
 
       <div
@@ -48,7 +45,6 @@
         >
           شروع پردازش زنده میکروفون
         </button>
-
         <button
           id="resetBtn"
           class="w-full sm:w-auto bg-slate-800 hover:bg-slate-700 text-amber-400 border border-slate-700 font-medium py-3 px-6 rounded-xl transition-all text-sm shadow-md cursor-pointer"
@@ -57,13 +53,15 @@
         </button>
       </div>
 
+      <audio id="forceOutput" autoplay muted playsinline class="hidden"></audio>
+
       <div class="bg-slate-950 p-6 rounded-xl border border-slate-800/80 mb-6">
-        <div
-          class="flex justify-between items-stretch h-64 sm:h-72 px-2 sm:px-4"
-        >
-          <div class="flex flex-col items-center justify-between flex-1">
-            <span id="val-75" class="text-[10px] font-mono text-slate-400 h-5"
-              >0dB</span
+        <div class="flex justify-between items-stretch h-80 px-1 sm:px-4">
+          <div
+            class="flex flex-col items-center justify-between flex-1 border-r border-slate-800/50 last:border-r-0"
+          >
+            <span class="text-xs font-bold tracking-wider text-emerald-400 mb-2"
+              >75Hz</span
             >
             <input
               type="range"
@@ -72,17 +70,20 @@
               max="20"
               value="0"
               step="1"
-              class="vertical-slider h-40 sm:h-48 w-4 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-emerald-400"
+              class="vertical-slider h-48 w-4 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-emerald-400"
             />
             <span
-              class="vertical-text text-xs font-bold tracking-wider mt-3 text-emerald-400"
-              >75 Hz</span
+              id="val-75"
+              class="text-[11px] font-mono text-slate-400 mt-2 bg-slate-900/80 px-1.5 py-0.5 rounded border border-slate-800"
+              >0dB</span
             >
           </div>
 
-          <div class="flex flex-col items-center justify-between flex-1">
-            <span id="val-150" class="text-[10px] font-mono text-slate-400 h-5"
-              >0dB</span
+          <div
+            class="flex flex-col items-center justify-between flex-1 border-r border-slate-800/50 last:border-r-0"
+          >
+            <span class="text-xs font-bold tracking-wider text-emerald-400 mb-2"
+              >150Hz</span
             >
             <input
               type="range"
@@ -91,17 +92,20 @@
               max="20"
               value="0"
               step="1"
-              class="vertical-slider h-40 sm:h-48 w-4 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-emerald-400"
+              class="vertical-slider h-48 w-4 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-emerald-400"
             />
             <span
-              class="vertical-text text-xs font-bold tracking-wider mt-3 text-emerald-400"
-              >150 Hz</span
+              id="val-150"
+              class="text-[11px] font-mono text-slate-400 mt-2 bg-slate-900/80 px-1.5 py-0.5 rounded border border-slate-800"
+              >0dB</span
             >
           </div>
 
-          <div class="flex flex-col items-center justify-between flex-1">
-            <span id="val-300" class="text-[10px] font-mono text-slate-400 h-5"
-              >0dB</span
+          <div
+            class="flex flex-col items-center justify-between flex-1 border-r border-slate-800/50 last:border-r-0"
+          >
+            <span class="text-xs font-bold tracking-wider text-emerald-400 mb-2"
+              >300Hz</span
             >
             <input
               type="range"
@@ -110,17 +114,20 @@
               max="20"
               value="0"
               step="1"
-              class="vertical-slider h-40 sm:h-48 w-4 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-emerald-400"
+              class="vertical-slider h-48 w-4 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-emerald-400"
             />
             <span
-              class="vertical-text text-xs font-bold tracking-wider mt-3 text-emerald-400"
-              >300 Hz</span
+              id="val-300"
+              class="text-[11px] font-mono text-slate-400 mt-2 bg-slate-900/80 px-1.5 py-0.5 rounded border border-slate-800"
+              >0dB</span
             >
           </div>
 
-          <div class="flex flex-col items-center justify-between flex-1">
-            <span id="val-600" class="text-[10px] font-mono text-slate-400 h-5"
-              >0dB</span
+          <div
+            class="flex flex-col items-center justify-between flex-1 border-r border-slate-800/50 last:border-r-0"
+          >
+            <span class="text-xs font-bold tracking-wider text-emerald-400 mb-2"
+              >600Hz</span
             >
             <input
               type="range"
@@ -129,17 +136,20 @@
               max="20"
               value="0"
               step="1"
-              class="vertical-slider h-40 sm:h-48 w-4 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-emerald-400"
+              class="vertical-slider h-48 w-4 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-emerald-400"
             />
             <span
-              class="vertical-text text-xs font-bold tracking-wider mt-3 text-emerald-400"
-              >600 Hz</span
+              id="val-600"
+              class="text-[11px] font-mono text-slate-400 mt-2 bg-slate-900/80 px-1.5 py-0.5 rounded border border-slate-800"
+              >0dB</span
             >
           </div>
 
-          <div class="flex flex-col items-center justify-between flex-1">
-            <span id="val-1200" class="text-[10px] font-mono text-slate-400 h-5"
-              >0dB</span
+          <div
+            class="flex flex-col items-center justify-between flex-1 border-r border-slate-800/50 last:border-r-0"
+          >
+            <span class="text-xs font-bold tracking-wider text-emerald-400 mb-2"
+              >1.2kHz</span
             >
             <input
               type="range"
@@ -148,17 +158,20 @@
               max="20"
               value="0"
               step="1"
-              class="vertical-slider h-40 sm:h-48 w-4 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-emerald-400"
+              class="vertical-slider h-48 w-4 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-emerald-400"
             />
             <span
-              class="vertical-text text-xs font-bold tracking-wider mt-3 text-emerald-400"
-              >1200 Hz</span
+              id="val-1200"
+              class="text-[11px] font-mono text-slate-400 mt-2 bg-slate-900/80 px-1.5 py-0.5 rounded border border-slate-800"
+              >0dB</span
             >
           </div>
 
-          <div class="flex flex-col items-center justify-between flex-1">
-            <span id="val-2400" class="text-[10px] font-mono text-slate-400 h-5"
-              >0dB</span
+          <div
+            class="flex flex-col items-center justify-between flex-1 border-r border-slate-800/50 last:border-r-0"
+          >
+            <span class="text-xs font-bold tracking-wider text-emerald-400 mb-2"
+              >2.4kHz</span
             >
             <input
               type="range"
@@ -167,17 +180,20 @@
               max="20"
               value="0"
               step="1"
-              class="vertical-slider h-40 sm:h-48 w-4 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-emerald-400"
+              class="vertical-slider h-48 w-4 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-emerald-400"
             />
             <span
-              class="vertical-text text-xs font-bold tracking-wider mt-3 text-emerald-400"
-              >2400 Hz</span
+              id="val-2400"
+              class="text-[11px] font-mono text-slate-400 mt-2 bg-slate-900/80 px-1.5 py-0.5 rounded border border-slate-800"
+              >0dB</span
             >
           </div>
 
-          <div class="flex flex-col items-center justify-between flex-1">
-            <span id="val-4800" class="text-[10px] font-mono text-slate-400 h-5"
-              >0dB</span
+          <div
+            class="flex flex-col items-center justify-between flex-1 border-r border-slate-800/50 last:border-r-0"
+          >
+            <span class="text-xs font-bold tracking-wider text-emerald-400 mb-2"
+              >4.8kHz</span
             >
             <input
               type="range"
@@ -186,17 +202,20 @@
               max="20"
               value="0"
               step="1"
-              class="vertical-slider h-40 sm:h-48 w-4 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-emerald-400"
+              class="vertical-slider h-48 w-4 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-emerald-400"
             />
             <span
-              class="vertical-text text-xs font-bold tracking-wider mt-3 text-emerald-400"
-              >4800 Hz</span
+              id="val-4800"
+              class="text-[11px] font-mono text-slate-400 mt-2 bg-slate-900/80 px-1.5 py-0.5 rounded border border-slate-800"
+              >0dB</span
             >
           </div>
 
-          <div class="flex flex-col items-center justify-between flex-1">
-            <span id="val-8000" class="text-[10px] font-mono text-slate-400 h-5"
-              >0dB</span
+          <div
+            class="flex flex-col items-center justify-between flex-1 border-r border-slate-800/50 last:border-r-0"
+          >
+            <span class="text-xs font-bold tracking-wider text-emerald-400 mb-2"
+              >8kHz</span
             >
             <input
               type="range"
@@ -205,22 +224,81 @@
               max="20"
               value="0"
               step="1"
-              class="vertical-slider h-40 sm:h-48 w-4 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-emerald-400"
+              class="vertical-slider h-48 w-4 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-emerald-400"
             />
             <span
-              class="vertical-text text-xs font-bold tracking-wider mt-3 text-emerald-400"
-              >8000 Hz</span
+              id="val-8000"
+              class="text-[11px] font-mono text-slate-400 mt-2 bg-slate-900/80 px-1.5 py-0.5 rounded border border-slate-800"
+              >0dB</span
             >
           </div>
         </div>
+      </div>
+
+      <div
+        class="bg-slate-800/30 p-5 rounded-xl border border-slate-800 text-sm space-y-3"
+      >
+        <h3
+          class="text-sm font-semibold text-emerald-400 border-b border-slate-700/60 pb-2 mb-3"
+        >
+          راهنمای آنالیز و مهندسی فرکانس‌ها:
+        </h3>
+        <ul class="space-y-2 text-slate-300 text-xs sm:text-sm leading-relaxed">
+          <li>
+            <strong class="text-emerald-500">75 Hz (Sub-Bass):</strong> محدوده
+            فرکانسی بسیار بم زیرین. تقویت آن به امواج ضربه‌های عمقی جان می‌دهد و
+            تضعیف آن "هووم" یا لرزش‌های اضافه محیطی کاسه ساز را می‌گیرد.
+          </li>
+          <li>
+            <strong class="text-emerald-500">150 Hz (Bass):</strong> بیس اصلی و
+            حجم بدنه. کانون انرژیِ اصلی ضربه «بم» در این محدوده است؛ افزایش آن
+            صدا را چاق‌تر و پرتر می‌کند.
+          </li>
+          <li>
+            <strong class="text-emerald-500">300 Hz (Low-Mid):</strong> محدوده
+            حساس فرکانس‌های میانی پایینی. اگر صدا گنگ، خفه یا اصطلاحاً Muddy
+            است، با کم کردن این باند می‌توانید وضوح و تفکیک طنین ساز را بالا
+            ببرید.
+          </li>
+          <li>
+            <strong class="text-emerald-500">600 Hz (Mid):</strong> بدنه
+            فرکانس‌های میانی. رزونانس و زنگِ طبیعی داخل کاسه چوبی ساز در این
+            باند قرار دارد؛ تغییر آن روی رنگ و اصالت لحن ساز اثر مستقیم دارد.
+          </li>
+          <li>
+            <strong class="text-emerald-500">1200 Hz (Mid-High):</strong> وضوحِ
+            ضربه برخورد دست یا مضراب با پوست/سیم. تقویت آن صدای تقه اولیه و
+            پانتش ضربه را مشخص‌تر می‌کند.
+          </li>
+          <li>
+            <strong class="text-emerald-500">2400 Hz (Upper-Mid):</strong> حضور
+            (Presence). این باند مسئول جلو آمدن یا عقب رفتن ساز در کل میکس است؛
+            افزایش آن ساز را زنده و نزدیک به گوش جلوه می‌دهد.
+          </li>
+          <li>
+            <strong class="text-emerald-500"
+              >4800 Hz (Presence/Sharpness):</strong
+            >
+            تیزی و شفافیت لبه‌ها. فرکانس‌های تیز ضربات کناری مچ و نواخت انگشتان
+            در این محدوده خودنمایی می‌کنند.
+          </li>
+          <li>
+            <strong class="text-emerald-500"
+              >8000 Hz (Treble/Brilliance):</strong
+            >
+            درخشندگی و خشکی صدا. صدای کششِ ریزها، صدای برخورد ناخن‌ها و جزئیات
+            بسیار ظریف، ابریشمی و هوای داخل ساز با این باند تنظیم می‌شود.
+          </li>
+        </ul>
       </div>
     </div>
 
     <script>
       const micBtn = document.getElementById("micBtn");
       const resetBtn = document.getElementById("resetBtn");
-
+      const forceOutput = document.getElementById("forceOutput");
       const frequencies = [75, 150, 300, 600, 1200, 2400, 4800, 8000];
+
       let audioCtx = null;
       let streamSource = null;
       let localStream = null;
@@ -229,98 +307,84 @@
 
       async function startMicEngine() {
         try {
-          // ۱. درخواست دسترسی به میکروفون با بالاترین کیفیت و حذف افکت‌های پیش‌فرض گوشی
+          if (!audioCtx) {
+            audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+          }
+          if (audioCtx.state === "suspended") {
+            await audioCtx.resume();
+          }
+
           localStream = await navigator.mediaDevices.getUserMedia({
             audio: {
-              echoCancellation: false, // غیرفعال کردن حذف اکو برای خراب نشدن صدای ساز
-              noiseSuppression: false, // غیرفعال کردن حذف نویز محیطی تا فرکانس‌های ساز کات نشوند
-              autoGainControl: false, // غیرفعال کردن کنترل خودکار حجم صدا
+              echoCancellation: false,
+              noiseSuppression: false,
+              autoGainControl: false,
             },
           });
 
-          audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-
-          // ایجاد گره منبع از جریان میکروفون زنده
+          forceOutput.srcObject = localStream;
           streamSource = audioCtx.createMediaStreamSource(localStream);
-
           let lastNode = streamSource;
 
-          // ۲. ساخت و زنجیره کردن فیلترهای اکولایزر
           frequencies.forEach((freq, index) => {
             const filter = audioCtx.createBiquadFilter();
-
-            if (index === 0) {
-              filter.type = "lowshelf";
-            } else if (index === frequencies.length - 1) {
+            if (index === 0) filter.type = "lowshelf";
+            else if (index === frequencies.length - 1)
               filter.type = "highshelf";
-            } else {
+            else {
               filter.type = "peaking";
               filter.Q.value = 1.2;
             }
-
             filter.frequency.value = freq;
-            // خواندن مقدار فعلی اسلایدر گرافیکی برای فیلتر
-            const currentSliderVal = document.getElementById(
-              `band-${freq}`,
-            ).value;
-            filter.gain.value = parseFloat(currentSliderVal);
+            filter.gain.value = parseFloat(
+              document.getElementById(`band-${freq}`).value,
+            );
 
             lastNode.connect(filter);
             lastNode = filter;
-
             filters[freq] = filter;
           });
 
-          // ۳. اتصال آخرین فیلتر به خروجی اصلی (هدفون / بلندگو)
           lastNode.connect(audioCtx.destination);
 
           isProcessing = true;
-          micBtn.textContent = "قطع میکروفون و پردازش";
-          micBtn.classList.replace("bg-emerald-600", "bg-red-600");
-          micBtn.classList.replace("hover:bg-emerald-500", "hover:bg-red-500");
+          micBtn.textContent = "قطع میکروفون";
+          micBtn.className =
+            "w-full sm:w-auto bg-red-600 hover:bg-red-500 text-white font-bold py-3 px-8 rounded-xl transition-all text-sm shadow-md cursor-pointer text-center";
         } catch (err) {
-          console.error("خطا در دسترسی به میکروفون:", err);
-          alert(
-            "اجازه دسترسی به میکروفون داده نشد یا دستگاه شما ورودی صوتی ندارد.",
-          );
+          alert("خطا در راه‌اندازی؛ لطفاً از اتصال امن HTTPS مطمئن شوید.");
+          console.error(err);
         }
       }
 
       function stopMicEngine() {
-        if (localStream) {
-          // متوقف کردن سخت‌افزاری میکروفون
+        if (localStream)
           localStream.getTracks().forEach((track) => track.stop());
-        }
-        if (audioCtx) {
-          audioCtx.close();
-        }
-        audioCtx = null;
-        streamSource = null;
+        forceOutput.srcObject = null;
+        if (audioCtx)
+          audioCtx.close().then(() => {
+            audioCtx = null;
+          });
         filters = {};
         isProcessing = false;
-
         micBtn.textContent = "شروع پردازش زنده میکروفون";
-        micBtn.classList.replace("bg-red-600", "bg-emerald-600");
-        micBtn.classList.replace("hover:bg-red-500", "hover:bg-emerald-500");
+        micBtn.className =
+          "w-full sm:w-auto bg-emerald-600 hover:bg-emerald-500 text-slate-950 font-bold py-3 px-8 rounded-xl transition-all text-sm shadow-md cursor-pointer text-center";
       }
 
       function updateFilterValue(freq) {
         const slider = document.getElementById(`band-${freq}`);
         const view = document.getElementById(`val-${freq}`);
         if (!slider) return;
-
         const val = slider.value;
         view.textContent = `${val > 0 ? "+" : ""}${val}dB`;
-
-        // اگر موتور صوتی فعال است، تغییر را همان لحظه اعمال کن
-        if (filters[freq]) {
-          filters[freq].gain.value = parseFloat(val);
-        }
+        if (filters[freq]) filters[freq].gain.value = parseFloat(val);
       }
 
       frequencies.forEach((freq) => {
-        const slider = document.getElementById(`band-${freq}`);
-        slider.addEventListener("input", () => updateFilterValue(freq));
+        document
+          .getElementById(`band-${freq}`)
+          .addEventListener("input", () => updateFilterValue(freq));
       });
 
       resetBtn.addEventListener("click", function () {
@@ -334,11 +398,8 @@
       });
 
       micBtn.addEventListener("click", function () {
-        if (!isProcessing) {
-          startMicEngine();
-        } else {
-          stopMicEngine();
-        }
+        if (!isProcessing) startMicEngine();
+        else stopMicEngine();
       });
     </script>
   </body>
