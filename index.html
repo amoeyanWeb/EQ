@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>رک استودیویی پرو - تأخیر صفر واقعی</title>
+    <title>اکولایزر باسکیت</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <style>
       body {
@@ -24,18 +24,150 @@
     class="bg-slate-950 text-slate-100 min-h-screen flex flex-col items-center justify-center p-2 sm:p-6"
   >
     <div
-      class="bg-slate-900 p-4 sm:p-8 rounded-2xl shadow-2xl w-full max-w-5xl border border-slate-800"
+      class="bg-slate-900 p-4 sm:p-8 rounded-2xl shadow-2xl w-full max-w-4xl border border-slate-800"
     >
       <h1
         class="text-xl sm:text-2xl font-bold text-center mb-1 text-emerald-400 font-mono"
       >
-        رک صوتی حرفه‌ای (Pure Audio - بدون تاخیر)
+        رک اکولایزر خالص (Pure EQ - ویژه موبایل)
       </h1>
       <p
         class="text-center text-[10px] sm:text-xs text-amber-500 mb-6 font-medium"
       >
-        ⚠️ جهت حذف تأخیر، پردازشگرهای مزاحم مرورگر کاملاً بای‌پاس شدند.
+        🚀 چیدمان فرکانس‌ها از چپ به راست (بم به زیر) تنظیم شد.
       </p>
+
+      <div class="mb-6 bg-slate-950 p-4 rounded-xl border border-slate-800/80">
+        <div
+          class="text-[11px] sm:text-xs text-amber-400 font-bold mb-3 border-b border-slate-800 pb-2"
+        >
+          🎛️ تنظیمات پیش‌فرض (Presets):
+        </div>
+        <div class="grid grid-cols-2 sm:grid-cols-5 gap-3 text-xs">
+          <label
+            class="flex items-center gap-2 bg-slate-900 p-2.5 rounded-lg border border-slate-800 cursor-pointer hover:border-emerald-500/40 transition-all"
+          >
+            <input
+              type="radio"
+              name="instrumentPreset"
+              value="setar"
+              checked
+              class="w-4 h-4 text-emerald-500 accent-emerald-500"
+            />
+            <span>سه تار</span>
+          </label>
+          <label
+            class="flex items-center gap-2 bg-slate-900 p-2.5 rounded-lg border border-slate-800 cursor-pointer hover:border-emerald-500/40 transition-all"
+          >
+            <input
+              type="radio"
+              name="instrumentPreset"
+              value="tar"
+              class="w-4 h-4 text-emerald-500 accent-emerald-500"
+            />
+            <span>تار</span>
+          </label>
+          <label
+            class="flex items-center gap-2 bg-slate-900 p-2.5 rounded-lg border border-slate-800 cursor-pointer hover:border-emerald-500/40 transition-all"
+          >
+            <input
+              type="radio"
+              name="instrumentPreset"
+              value="tombak"
+              class="w-4 h-4 text-emerald-500 accent-emerald-500"
+            />
+            <span>تمبک</span>
+          </label>
+          <label
+            class="flex items-center gap-2 bg-slate-900 p-2.5 rounded-lg border border-slate-800 cursor-pointer hover:border-emerald-500/40 transition-all"
+          >
+            <input
+              type="radio"
+              name="instrumentPreset"
+              value="daf"
+              class="w-4 h-4 text-emerald-500 accent-emerald-500"
+            />
+            <span>سنتور</span>
+          </label>
+          <label
+            class="flex items-center gap-2 bg-slate-900 p-2.5 rounded-lg border border-slate-800 cursor-pointer hover:border-emerald-500/40 transition-all"
+          >
+            <input
+              type="radio"
+              name="instrumentPreset"
+              value="baglama"
+              class="w-4 h-4 text-emerald-500 accent-emerald-500"
+            />
+            <span>باقلاما</span>
+          </label>
+          <label
+            class="flex items-center gap-2 bg-slate-900 p-2.5 rounded-lg border border-slate-800 cursor-pointer hover:border-emerald-500/40 transition-all"
+          >
+            <input
+              type="radio"
+              name="instrumentPreset"
+              value="guitar"
+              class="w-4 h-4 text-emerald-500 accent-emerald-500"
+            />
+            <span>گیتار</span>
+          </label>
+          <label
+            class="flex items-center gap-2 bg-slate-900 p-2.5 rounded-lg border border-slate-800 cursor-pointer hover:border-emerald-500/40 transition-all"
+          >
+            <input
+              type="radio"
+              name="instrumentPreset"
+              value="bass"
+              class="w-4 h-4 text-emerald-500 accent-emerald-500"
+            />
+            <span>گیتار بیس</span>
+          </label>
+          <label
+            class="flex items-center gap-2 bg-slate-900 p-2.5 rounded-lg border border-slate-800 cursor-pointer hover:border-emerald-500/40 transition-all"
+          >
+            <input
+              type="radio"
+              name="instrumentPreset"
+              value="kamancheh"
+              class="w-4 h-4 text-emerald-500 accent-emerald-500"
+            />
+            <span>کمانچه</span>
+          </label>
+          <label
+            class="flex items-center gap-2 bg-slate-900 p-2.5 rounded-lg border border-slate-800 cursor-pointer hover:border-emerald-500/40 transition-all"
+          >
+            <input
+              type="radio"
+              name="instrumentPreset"
+              value="ney"
+              class="w-4 h-4 text-emerald-500 accent-emerald-500"
+            />
+            <span>نی</span>
+          </label>
+          <label
+            class="flex items-center gap-2 bg-slate-900 p-2.5 rounded-lg border border-slate-800 cursor-pointer hover:border-emerald-500/40 transition-all"
+          >
+            <input
+              type="radio"
+              name="instrumentPreset"
+              value="violin"
+              class="w-4 h-4 text-emerald-500 accent-emerald-500"
+            />
+            <span>ویولون</span>
+          </label>
+          <label
+            class="flex items-center gap-2 bg-slate-900 p-2.5 rounded-lg border border-slate-800 cursor-pointer hover:border-emerald-500/40 transition-all"
+          >
+            <input
+              type="radio"
+              name="instrumentPreset"
+              value="asheghi"
+              class="w-4 h-4 text-emerald-500 accent-emerald-500"
+            />
+            <span>ساز عاشقی</span>
+          </label>
+        </div>
+      </div>
 
       <div
         class="mb-6 bg-slate-800/40 p-3 sm:p-4 rounded-xl border border-slate-800 flex flex-col sm:flex-row gap-3 items-center justify-center"
@@ -50,406 +182,159 @@
           id="resetBtn"
           class="w-full sm:w-auto bg-slate-800 hover:bg-slate-700 text-amber-400 border border-slate-700 font-medium py-3 px-6 rounded-xl transition-all text-xs sm:text-sm shadow-md cursor-pointer"
         >
-          ریست تمام ماژول‌ها (صدا خشک)
+          ریست فرکانس‌ها (0dB)
         </button>
       </div>
 
       <audio id="forceOutput" autoplay muted playsinline class="hidden"></audio>
 
       <div
-        class="flex flex-col gap-6 bg-slate-950 p-4 sm:p-6 rounded-xl border border-slate-800/80 mb-6"
+        class="bg-slate-950 p-4 sm:p-6 rounded-xl border border-slate-800/80"
       >
-        <div>
-          <div
-            class="text-[11px] sm:text-xs text-slate-400 font-bold mb-4 border-b border-slate-800 pb-2"
-          >
-            کنسول موازنه فرکانسی (Equalizer):
-          </div>
-          <div class="flex justify-between items-stretch h-56 sm:h-60 gap-1">
-            <div class="flex flex-col items-center justify-between flex-1">
-              <span class="text-[10px] font-bold text-emerald-400">75Hz</span>
-              <input
-                type="range"
-                id="band-75"
-                min="-15"
-                max="15"
-                value="0"
-                step="1"
-                class="vertical-slider h-32 sm:h-36 w-3.5 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-emerald-400"
-              />
-              <span
-                id="val-75"
-                class="text-[9px] font-mono text-slate-400 bg-slate-900 px-1 rounded"
-                >0dB</span
-              >
-            </div>
-            <div class="flex flex-col items-center justify-between flex-1">
-              <span class="text-[10px] font-bold text-emerald-400">150Hz</span>
-              <input
-                type="range"
-                id="band-150"
-                min="-15"
-                max="15"
-                value="0"
-                step="1"
-                class="vertical-slider h-32 sm:h-36 w-3.5 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-emerald-400"
-              />
-              <span
-                id="val-150"
-                class="text-[9px] font-mono text-slate-400 bg-slate-900 px-1 rounded"
-                >0dB</span
-              >
-            </div>
-            <div class="flex flex-col items-center justify-between flex-1">
-              <span class="text-[10px] font-bold text-emerald-400">300Hz</span>
-              <input
-                type="range"
-                id="band-300"
-                min="-15"
-                max="15"
-                value="0"
-                step="1"
-                class="vertical-slider h-32 sm:h-36 w-3.5 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-emerald-400"
-              />
-              <span
-                id="val-300"
-                class="text-[9px] font-mono text-slate-400 bg-slate-900 px-1 rounded"
-                >0dB</span
-              >
-            </div>
-            <div class="flex flex-col items-center justify-between flex-1">
-              <span class="text-[10px] font-bold text-emerald-400">600Hz</span>
-              <input
-                type="range"
-                id="band-600"
-                min="-15"
-                max="15"
-                value="0"
-                step="1"
-                class="vertical-slider h-32 sm:h-36 w-3.5 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-emerald-400"
-              />
-              <span
-                id="val-600"
-                class="text-[9px] font-mono text-slate-400 bg-slate-900 px-1 rounded"
-                >0dB</span
-              >
-            </div>
-            <div class="flex flex-col items-center justify-between flex-1">
-              <span class="text-[10px] font-bold text-emerald-400">1.2k</span>
-              <input
-                type="range"
-                id="band-1200"
-                min="-15"
-                max="15"
-                value="0"
-                step="1"
-                class="vertical-slider h-32 sm:h-36 w-3.5 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-emerald-400"
-              />
-              <span
-                id="val-1200"
-                class="text-[9px] font-mono text-slate-400 bg-slate-900 px-1 rounded"
-                >0dB</span
-              >
-            </div>
-            <div class="flex flex-col items-center justify-between flex-1">
-              <span class="text-[10px] font-bold text-emerald-400">2.4k</span>
-              <input
-                type="range"
-                id="band-2400"
-                min="-15"
-                max="15"
-                value="0"
-                step="1"
-                class="vertical-slider h-32 sm:h-36 w-3.5 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-emerald-400"
-              />
-              <span
-                id="val-2400"
-                class="text-[9px] font-mono text-slate-400 bg-slate-900 px-1 rounded"
-                >0dB</span
-              >
-            </div>
-            <div class="flex flex-col items-center justify-between flex-1">
-              <span class="text-[10px] font-bold text-emerald-400">4.8k</span>
-              <input
-                type="range"
-                id="band-4800"
-                min="-15"
-                max="15"
-                value="0"
-                step="1"
-                class="vertical-slider h-32 sm:h-36 w-3.5 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-emerald-400"
-              />
-              <span
-                id="val-4800"
-                class="text-[9px] font-mono text-slate-400 bg-slate-900 px-1 rounded"
-                >0dB</span
-              >
-            </div>
-            <div class="flex flex-col items-center justify-between flex-1">
-              <span class="text-[10px] font-bold text-emerald-400">8kHz</span>
-              <input
-                type="range"
-                id="band-8000"
-                min="-15"
-                max="15"
-                value="0"
-                step="1"
-                class="vertical-slider h-32 sm:h-36 w-3.5 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-emerald-400"
-              />
-              <span
-                id="val-8000"
-                class="text-[9px] font-mono text-slate-400 bg-slate-900 px-1 rounded"
-                >0dB</span
-              >
-            </div>
-          </div>
-        </div>
-
         <div
-          class="grid grid-cols-1 lg:grid-cols-2 gap-6 border-t border-slate-800 pt-4"
+          class="text-[11px] sm:text-xs text-slate-400 font-bold mb-4 border-b border-slate-800 pb-2 text-right"
         >
-          <div
-            class="bg-slate-900/20 p-4 rounded-xl border border-slate-800/60"
-          >
-            <div
-              class="text-[11px] sm:text-xs text-sky-400 font-bold mb-3 border-b border-slate-800 pb-2"
+          کنسول موازنه فرکانسی (Equalizer):
+        </div>
+        <div
+          class="flex justify-between items-stretch h-56 sm:h-60 gap-1"
+          dir="ltr"
+        >
+          <div class="flex flex-col items-center justify-between flex-1">
+            <span class="text-[10px] font-bold text-emerald-400">75Hz</span>
+            <input
+              type="range"
+              id="band-75"
+              min="-15"
+              max="15"
+              value="0"
+              step="1"
+              class="vertical-slider h-32 sm:h-36 w-3.5 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-emerald-400"
+            />
+            <span
+              id="val-75"
+              class="text-[9px] font-mono text-slate-400 bg-slate-900 px-1 rounded"
+              >0dB</span
             >
-              ۱. فضاسازی آکوستیک و کلاسیک (Acoustic Spaces)
-            </div>
-            <div class="grid grid-cols-4 gap-2">
-              <div
-                class="flex flex-col items-center justify-between bg-slate-900/60 py-3 px-1 rounded-xl h-48 border border-slate-800/40"
-              >
-                <label
-                  class="flex flex-col items-center gap-1 cursor-pointer select-none"
-                >
-                  <input
-                    type="checkbox"
-                    id="roomEnable"
-                    class="w-3.5 h-3.5 rounded text-sky-500 accent-sky-500"
-                  />
-                  <span class="text-[10px] font-bold text-slate-300">اتاق</span>
-                </label>
-                <input
-                  type="range"
-                  id="roomMix"
-                  min="0"
-                  max="100"
-                  value="0"
-                  class="vertical-slider h-20 w-3.5 bg-slate-800 rounded-lg accent-sky-500"
-                />
-                <span
-                  id="roomVal"
-                  class="text-[10px] font-mono text-sky-400 bg-slate-950 px-1 rounded"
-                  >0%</span
-                >
-              </div>
-              <div
-                class="flex flex-col items-center justify-between bg-slate-900/60 py-3 px-1 rounded-xl h-48 border border-slate-800/40"
-              >
-                <label
-                  class="flex flex-col items-center gap-1 cursor-pointer select-none"
-                >
-                  <input
-                    type="checkbox"
-                    id="hallEnable"
-                    class="w-3.5 h-3.5 rounded text-sky-500 accent-sky-500"
-                  />
-                  <span class="text-[10px] font-bold text-slate-300"
-                    >تالار</span
-                  >
-                </label>
-                <input
-                  type="range"
-                  id="hallMix"
-                  min="0"
-                  max="100"
-                  value="0"
-                  class="vertical-slider h-20 w-3.5 bg-slate-800 rounded-lg accent-sky-500"
-                />
-                <span
-                  id="hallVal"
-                  class="text-[10px] font-mono text-sky-400 bg-slate-950 px-1 rounded"
-                  >0%</span
-                >
-              </div>
-              <div
-                class="flex flex-col items-center justify-between bg-slate-900/60 py-3 px-1 rounded-xl h-48 border border-slate-800/40"
-              >
-                <label
-                  class="flex flex-col items-center gap-1 cursor-pointer select-none"
-                >
-                  <input
-                    type="checkbox"
-                    id="slapEnable"
-                    class="w-3.5 h-3.5 rounded text-sky-500 accent-sky-500"
-                  />
-                  <span class="text-[10px] font-bold text-slate-300">اسلپ</span>
-                </label>
-                <input
-                  type="range"
-                  id="slapMix"
-                  min="0"
-                  max="100"
-                  value="0"
-                  class="vertical-slider h-20 w-3.5 bg-slate-800 rounded-lg accent-sky-500"
-                />
-                <span
-                  id="slapVal"
-                  class="text-[10px] font-mono text-sky-400 bg-slate-950 px-1 rounded"
-                  >0%</span
-                >
-              </div>
-              <div
-                class="flex flex-col items-center justify-between bg-slate-900/60 py-3 px-1 rounded-xl h-48 border border-slate-800/40"
-              >
-                <label
-                  class="flex flex-col items-center gap-1 cursor-pointer select-none"
-                >
-                  <input
-                    type="checkbox"
-                    id="echoEnable"
-                    class="w-3.5 h-3.5 rounded text-sky-500 accent-sky-500"
-                  />
-                  <span class="text-[10px] font-bold text-slate-300">اکو</span>
-                </label>
-                <input
-                  type="range"
-                  id="echoMix"
-                  min="0"
-                  max="100"
-                  value="0"
-                  class="vertical-slider h-20 w-3.5 bg-slate-800 rounded-lg accent-sky-500"
-                />
-                <span
-                  id="echoVal"
-                  class="text-[10px] font-mono text-sky-400 bg-slate-950 px-1 rounded"
-                  >0%</span
-                >
-              </div>
-            </div>
           </div>
-
-          <div
-            class="bg-slate-900/20 p-4 rounded-xl border border-slate-800/60"
-          >
-            <div
-              class="text-[11px] sm:text-xs text-purple-400 font-bold mb-3 border-b border-slate-800 pb-2"
+          <div class="flex flex-col items-center justify-between flex-1">
+            <span class="text-[10px] font-bold text-emerald-400">150Hz</span>
+            <input
+              type="range"
+              id="band-150"
+              min="-15"
+              max="15"
+              value="0"
+              step="1"
+              class="vertical-slider h-32 sm:h-36 w-3.5 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-emerald-400"
+            />
+            <span
+              id="val-150"
+              class="text-[9px] font-mono text-slate-400 bg-slate-900 px-1 rounded"
+              >0dB</span
             >
-              ۲. پردازش‌های فانتزی و اتمسفریک (Creative FX)
-            </div>
-            <div class="grid grid-cols-4 gap-2">
-              <div
-                class="flex flex-col items-center justify-between bg-slate-900/60 py-3 px-1 rounded-xl h-48 border border-slate-800/40"
-              >
-                <label
-                  class="flex flex-col items-center gap-1 cursor-pointer select-none"
-                >
-                  <input
-                    type="checkbox"
-                    id="shimmerEnable"
-                    class="w-3.5 h-3.5 rounded text-purple-500 accent-purple-500"
-                  />
-                  <span class="text-[10px] font-bold text-slate-300">شیمر</span>
-                </label>
-                <input
-                  type="range"
-                  id="shimmerMix"
-                  min="0"
-                  max="100"
-                  value="0"
-                  class="vertical-slider h-20 w-3.5 bg-slate-800 rounded-lg accent-purple-500"
-                />
-                <span
-                  id="shimmerVal"
-                  class="text-[10px] font-mono text-purple-400 bg-slate-950 px-1 rounded"
-                  >0%</span
-                >
-              </div>
-              <div
-                class="flex flex-col items-center justify-between bg-slate-900/60 py-3 px-1 rounded-xl h-48 border border-slate-800/40"
-              >
-                <label
-                  class="flex flex-col items-center gap-1 cursor-pointer select-none"
-                >
-                  <input
-                    type="checkbox"
-                    id="cloudEnable"
-                    class="w-3.5 h-3.5 rounded text-purple-500 accent-purple-500"
-                  />
-                  <span class="text-[10px] font-bold text-slate-300"
-                    >کلاود</span
-                  >
-                </label>
-                <input
-                  type="range"
-                  id="cloudMix"
-                  min="0"
-                  max="100"
-                  value="0"
-                  class="vertical-slider h-20 w-3.5 bg-slate-800 rounded-lg accent-purple-500"
-                />
-                <span
-                  id="cloudVal"
-                  class="text-[10px] font-mono text-purple-400 bg-slate-950 px-1 rounded"
-                  >0%</span
-                >
-              </div>
-              <div
-                class="flex flex-col items-center justify-between bg-slate-900/60 py-3 px-1 rounded-xl h-48 border border-slate-800/40"
-              >
-                <label
-                  class="flex flex-col items-center gap-1 cursor-pointer select-none"
-                >
-                  <input
-                    type="checkbox"
-                    id="springEnable"
-                    class="w-3.5 h-3.5 rounded text-purple-500 accent-purple-500"
-                  />
-                  <span class="text-[10px] font-bold text-slate-300">فنری</span>
-                </label>
-                <input
-                  type="range"
-                  id="springMix"
-                  min="0"
-                  max="100"
-                  value="0"
-                  class="vertical-slider h-20 w-3.5 bg-slate-800 rounded-lg accent-purple-500"
-                />
-                <span
-                  id="springVal"
-                  class="text-[10px] font-mono text-purple-400 bg-slate-950 px-1 rounded"
-                  >0%</span
-                >
-              </div>
-              <div
-                class="flex flex-col items-center justify-between bg-slate-900/60 py-3 px-1 rounded-xl h-48 border border-slate-800/40"
-              >
-                <label
-                  class="flex flex-col items-center gap-1 cursor-pointer select-none"
-                >
-                  <input
-                    type="checkbox"
-                    id="lofiEnable"
-                    class="w-3.5 h-3.5 rounded text-purple-500 accent-purple-500"
-                  />
-                  <span class="text-[10px] font-bold text-slate-300">لوفی</span>
-                </label>
-                <input
-                  type="range"
-                  id="lofiMix"
-                  min="0"
-                  max="100"
-                  value="0"
-                  class="vertical-slider h-20 w-3.5 bg-slate-800 rounded-lg accent-purple-500"
-                />
-                <span
-                  id="lofiVal"
-                  class="text-[10px] font-mono text-purple-400 bg-slate-950 px-1 rounded"
-                  >0%</span
-                >
-              </div>
-            </div>
+          </div>
+          <div class="flex flex-col items-center justify-between flex-1">
+            <span class="text-[10px] font-bold text-emerald-400">300Hz</span>
+            <input
+              type="range"
+              id="band-300"
+              min="-15"
+              max="15"
+              value="0"
+              step="1"
+              class="vertical-slider h-32 sm:h-36 w-3.5 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-emerald-400"
+            />
+            <span
+              id="val-300"
+              class="text-[9px] font-mono text-slate-400 bg-slate-900 px-1 rounded"
+              >0dB</span
+            >
+          </div>
+          <div class="flex flex-col items-center justify-between flex-1">
+            <span class="text-[10px] font-bold text-emerald-400">600Hz</span>
+            <input
+              type="range"
+              id="band-600"
+              min="-15"
+              max="15"
+              value="0"
+              step="1"
+              class="vertical-slider h-32 sm:h-36 w-3.5 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-emerald-400"
+            />
+            <span
+              id="val-600"
+              class="text-[9px] font-mono text-slate-400 bg-slate-900 px-1 rounded"
+              >0dB</span
+            >
+          </div>
+          <div class="flex flex-col items-center justify-between flex-1">
+            <span class="text-[10px] font-bold text-emerald-400">1.2k</span>
+            <input
+              type="range"
+              id="band-1200"
+              min="-15"
+              max="15"
+              value="0"
+              step="1"
+              class="vertical-slider h-32 sm:h-36 w-3.5 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-emerald-400"
+            />
+            <span
+              id="val-1200"
+              class="text-[9px] font-mono text-slate-400 bg-slate-900 px-1 rounded"
+              >0dB</span
+            >
+          </div>
+          <div class="flex flex-col items-center justify-between flex-1">
+            <span class="text-[10px] font-bold text-emerald-400">2.4k</span>
+            <input
+              type="range"
+              id="band-2400"
+              min="-15"
+              max="15"
+              value="0"
+              step="1"
+              class="vertical-slider h-32 sm:h-36 w-3.5 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-emerald-400"
+            />
+            <span
+              id="val-2400"
+              class="text-[9px] font-mono text-slate-400 bg-slate-900 px-1 rounded"
+              >0dB</span
+            >
+          </div>
+          <div class="flex flex-col items-center justify-between flex-1">
+            <span class="text-[10px] font-bold text-emerald-400">4.8k</span>
+            <input
+              type="range"
+              id="band-4800"
+              min="-15"
+              max="15"
+              value="0"
+              step="1"
+              class="vertical-slider h-32 sm:h-36 w-3.5 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-emerald-400"
+            />
+            <span
+              id="val-4800"
+              class="text-[9px] font-mono text-slate-400 bg-slate-900 px-1 rounded"
+              >0dB</span
+            >
+          </div>
+          <div class="flex flex-col items-center justify-between flex-1">
+            <span class="text-[10px] font-bold text-emerald-400">8kHz</span>
+            <input
+              type="range"
+              id="band-8000"
+              min="-15"
+              max="15"
+              value="0"
+              step="1"
+              class="vertical-slider h-32 sm:h-36 w-3.5 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-emerald-400"
+            />
+            <span
+              id="val-8000"
+              class="text-[9px] font-mono text-slate-400 bg-slate-900 px-1 rounded"
+              >0dB</span
+            >
           </div>
         </div>
       </div>
@@ -465,60 +350,128 @@
         streamSource = null,
         localStream = null;
       let filters = {},
-        isProcessing = false,
-        dryGain = null,
-        eqOutNode = null;
+        isProcessing = false;
 
-      let roomDelay = null,
-        roomFB = null,
-        roomGain = null;
-      let hallDelay = null,
-        hallFB = null,
-        hallGain = null;
-      let slapDelay = null,
-        slapGain = null;
-      let echoDelay = null,
-        echoFB = null,
-        echoGain = null;
-      let shimHP = null,
-        shimPeak = null,
-        shimDelay = null,
-        shimFB = null,
-        shimGain = null;
-      let cloudDelay = null,
-        cloudFB = null,
-        cloudGain = null;
-      let springFilt = null,
-        springDelay = null,
-        springFB = null,
-        springGain = null;
-      let lofiFilt = null,
-        lofiDist = null,
-        lofiGain = null,
-        lofiOsc = null,
-        lofiModGain = null,
-        lofiDel = null;
-
-      function makeDistCurve(amount = 20) {
-        const curve = new Float32Array(44100);
-        const deg = Math.PI / 180;
-        for (let i = 0; i < 44100; ++i) {
-          const x = (i * 2) / 44100 - 1;
-          curve[i] =
-            ((3 + amount) * x * 15 * deg) / (Math.PI + amount * Math.abs(x));
-        }
-        return curve;
-      }
+      const instrumentPresets = {
+        setar: {
+          75: 0,
+          150: 0,
+          300: 0,
+          600: 0,
+          1200: 0,
+          2400: 0,
+          4800: 0,
+          8000: 0,
+        },
+        tar: {
+          75: 0,
+          150: 0,
+          300: 0,
+          600: 0,
+          1200: 0,
+          2400: 0,
+          4800: 0,
+          8000: 0,
+        },
+        tombak: {
+          75: 0,
+          150: 0,
+          300: 0,
+          600: 0,
+          1200: 0,
+          2400: 0,
+          4800: 0,
+          8000: 0,
+        },
+        daf: {
+          75: 0,
+          150: 0,
+          300: 0,
+          600: 0,
+          1200: 0,
+          2400: 0,
+          4800: 0,
+          8000: 0,
+        },
+        baglama: {
+          75: 0,
+          150: 0,
+          300: 0,
+          600: 0,
+          1200: 0,
+          2400: 0,
+          4800: 0,
+          8000: 0,
+        },
+        guitar: {
+          75: 0,
+          150: 0,
+          300: 0,
+          600: 0,
+          1200: 0,
+          2400: 0,
+          4800: 0,
+          8000: 0,
+        },
+        bass: {
+          75: 0,
+          150: 0,
+          300: 0,
+          600: 0,
+          1200: 0,
+          2400: 0,
+          4800: 0,
+          8000: 0,
+        },
+        kamancheh: {
+          75: 0,
+          150: 0,
+          300: 0,
+          600: 0,
+          1200: 0,
+          2400: 0,
+          4800: 0,
+          8000: 0,
+        },
+        violin: {
+          75: 0,
+          150: 0,
+          300: 0,
+          600: 0,
+          1200: 0,
+          2400: 0,
+          4800: 0,
+          8000: 0,
+        },
+        asheghi: {
+          75: 0,
+          150: 0,
+          300: 0,
+          600: 0,
+          1200: 0,
+          2400: 0,
+          4800: 0,
+          8000: 0,
+        },
+        ney: {
+          75: 0,
+          150: 0,
+          300: 0,
+          600: 0,
+          1200: 0,
+          2400: 0,
+          4800: 0,
+          8000: 0,
+        },
+      };
 
       async function startMicEngine() {
         try {
-          // کانفیگ عمیق سیستم صوتی مرورگر برای حذف تاخیر بافرینگ سخت‌افزاری
           audioCtx = new (window.AudioContext || window.webkitAudioContext)({
             latencyHint: "interactive",
-            sampleRate: 44100, // قفل روی فرکانس استاندارد استودیویی جهت جلوگیری از تبدیل فرکانسی متوالی
+            sampleRate: 44100,
           });
 
-          // غیرفعال‌سازی مطلق تمام پردازشگرهای نرم‌افزاری داخلی مرورگر (بای‌پاس کامل نویز ریداکشن و اکو)
           localStream = await navigator.mediaDevices.getUserMedia({
             audio: {
               echoCancellation: { ideal: false },
@@ -530,89 +483,6 @@
 
           forceOutput.srcObject = localStream;
           streamSource = audioCtx.createMediaStreamSource(localStream);
-          dryGain = audioCtx.createGain();
-
-          // معماری زنجیره‌ای افکت‌های فوق‌سبک خطی بدون تاخیر
-          roomDelay = audioCtx.createDelay();
-          roomDelay.delayTime.value = 0.03;
-          roomFB = audioCtx.createGain();
-          roomFB.gain.value = 0.3;
-          roomGain = audioCtx.createGain();
-          roomGain.gain.value = 0;
-          roomDelay.connect(roomFB);
-          roomFB.connect(roomDelay);
-
-          hallDelay = audioCtx.createDelay();
-          hallDelay.delayTime.value = 0.075;
-          hallFB = audioCtx.createGain();
-          hallFB.gain.value = 0.55;
-          hallGain = audioCtx.createGain();
-          hallGain.gain.value = 0;
-          hallDelay.connect(hallFB);
-          hallFB.connect(hallDelay);
-
-          slapDelay = audioCtx.createDelay();
-          slapDelay.delayTime.value = 0.08;
-          slapGain = audioCtx.createGain();
-          slapGain.gain.value = 0;
-
-          echoDelay = audioCtx.createDelay();
-          echoDelay.delayTime.value = 0.34;
-          echoFB = audioCtx.createGain();
-          echoFB.gain.value = 0.4;
-          echoGain = audioCtx.createGain();
-          echoGain.gain.value = 0;
-          echoDelay.connect(echoFB);
-          echoFB.connect(echoDelay);
-
-          shimHP = audioCtx.createBiquadFilter();
-          shimHP.type = "highpass";
-          shimHP.frequency.value = 3800;
-          shimPeak = audioCtx.createBiquadFilter();
-          shimPeak.type = "peaking";
-          shimPeak.frequency.value = 6500;
-          shimPeak.gain.value = 10;
-          shimDelay = audioCtx.createDelay();
-          shimDelay.delayTime.value = 0.1;
-          shimFB = audioCtx.createGain();
-          shimFB.gain.value = 0.45;
-          shimGain = audioCtx.createGain();
-          shimGain.gain.value = 0;
-          shimDelay.connect(shimFB);
-          shimFB.connect(shimDelay);
-
-          cloudDelay = audioCtx.createDelay();
-          cloudDelay.delayTime.value = 0.16;
-          cloudFB = audioCtx.createGain();
-          cloudFB.gain.value = 0.7;
-          cloudGain = audioCtx.createGain();
-          cloudGain.gain.value = 0;
-          cloudDelay.connect(cloudFB);
-          cloudFB.connect(cloudDelay);
-
-          springFilt = audioCtx.createBiquadFilter();
-          springFilt.type = "peaking";
-          springFilt.frequency.value = 250;
-          springFilt.Q.value = 5;
-          springFilt.gain.value = 6;
-          springDelay = audioCtx.createDelay();
-          springDelay.delayTime.value = 0.04;
-          springFB = audioCtx.createGain();
-          springFB.gain.value = 0.5;
-          springGain = audioCtx.createGain();
-          springGain.gain.value = 0;
-          springDelay.connect(springFB);
-          springFB.connect(springDelay);
-
-          lofiFilt = audioCtx.createBiquadFilter();
-          lofiFilt.type = "bandpass";
-          lofiFilt.frequency.value = 1350;
-          lofiDist = audioCtx.createWaveShaper();
-          lofiDist.curve = makeDistCurve(20);
-          lofiGain = audioCtx.createGain();
-          lofiGain.gain.value = 0;
-          lofiDel = audioCtx.createDelay();
-          lofiDel.delayTime.value = 0.004;
 
           let lastNode = streamSource;
           frequencies.forEach((freq, index) => {
@@ -624,210 +494,48 @@
               filter.type = "peaking";
               filter.Q.value = 1.0;
             }
+
             filter.frequency.value = freq;
             filter.gain.value = parseFloat(
               document.getElementById(`band-${freq}`).value,
             );
+
             lastNode.connect(filter);
             lastNode = filter;
             filters[freq] = filter;
           });
 
-          eqOutNode = lastNode;
-          eqOutNode.connect(dryGain);
-          dryGain.connect(audioCtx.destination);
+          lastNode.connect(audioCtx.destination);
 
-          updateGains();
           isProcessing = true;
           micBtn.textContent = "قطع ماژول زنده استودیو";
           micBtn.className =
             "w-full sm:w-auto bg-red-600 hover:bg-red-500 text-white font-bold py-3 px-8 rounded-xl transition-all text-xs sm:text-sm shadow-md cursor-pointer text-center";
         } catch (err) {
-          alert("خطا؛ دسترسی به میکروفون صادر نشد یا اتصال امن نیست.");
+          alert(
+            "خطا؛ دسترسی به میکروفون صادر نشد یا اتصال بر بستر HTTPS نیست.",
+          );
           console.error(err);
         }
       }
 
-      function updateGains() {
-        if (!isProcessing) return;
+      function applyPreset(presetName) {
+        const preset = instrumentPresets[presetName];
+        if (!preset) return;
 
-        const effectsConfig = [
-          {
-            enId: "roomEnable",
-            mixId: "roomMix",
-            valId: "roomVal",
-            gainNode: roomGain,
-            connectRoute: () => {
-              eqOutNode.connect(roomDelay);
-              roomFB.connect(roomGain);
-              roomGain.connect(audioCtx.destination);
-            },
-            disconnectRoute: () => {
-              try {
-                eqOutNode.disconnect(roomDelay);
-                roomFB.disconnect(roomGain);
-                roomGain.disconnect();
-              } catch (e) {}
-            },
-          },
-          {
-            enId: "hallEnable",
-            mixId: "hallMix",
-            valId: "hallVal",
-            gainNode: hallGain,
-            connectRoute: () => {
-              eqOutNode.connect(hallDelay);
-              hallFB.connect(hallGain);
-              hallGain.connect(audioCtx.destination);
-            },
-            disconnectRoute: () => {
-              try {
-                eqOutNode.disconnect(hallDelay);
-                hallFB.disconnect(hallGain);
-                hallGain.disconnect();
-              } catch (e) {}
-            },
-          },
-          {
-            enId: "slapEnable",
-            mixId: "slapMix",
-            valId: "slapVal",
-            gainNode: slapGain,
-            connectRoute: () => {
-              eqOutNode.connect(slapDelay);
-              slapDelay.connect(slapGain);
-              slapGain.connect(audioCtx.destination);
-            },
-            disconnectRoute: () => {
-              try {
-                eqOutNode.disconnect(slapDelay);
-                slapDelay.disconnect(slapGain);
-                slapGain.disconnect();
-              } catch (e) {}
-            },
-          },
-          {
-            enId: "echoEnable",
-            mixId: "echoMix",
-            valId: "echoVal",
-            gainNode: echoGain,
-            connectRoute: () => {
-              eqOutNode.connect(echoDelay);
-              echoFB.connect(echoGain);
-              echoGain.connect(audioCtx.destination);
-            },
-            disconnectRoute: () => {
-              try {
-                eqOutNode.disconnect(echoDelay);
-                echoFB.disconnect(echoGain);
-                echoGain.disconnect();
-              } catch (e) {}
-            },
-          },
-          {
-            enId: "shimmerEnable",
-            mixId: "shimmerMix",
-            valId: "shimmerVal",
-            gainNode: shimGain,
-            connectRoute: () => {
-              eqOutNode.connect(shimHP);
-              shimHP.connect(shimPeak);
-              shimPeak.connect(shimDelay);
-              shimFB.connect(shimGain);
-              shimGain.connect(audioCtx.destination);
-            },
-            disconnectRoute: () => {
-              try {
-                eqOutNode.disconnect(shimHP);
-                shimGain.disconnect();
-              } catch (e) {}
-            },
-          },
-          {
-            enId: "cloudEnable",
-            mixId: "cloudMix",
-            valId: "cloudVal",
-            gainNode: cloudGain,
-            connectRoute: () => {
-              eqOutNode.connect(cloudDelay);
-              cloudFB.connect(cloudGain);
-              cloudGain.connect(audioCtx.destination);
-            },
-            disconnectRoute: () => {
-              try {
-                eqOutNode.disconnect(cloudDelay);
-                cloudFB.disconnect(cloudGain);
-                cloudGain.disconnect();
-              } catch (e) {}
-            },
-          },
-          {
-            enId: "springEnable",
-            mixId: "springMix",
-            valId: "springVal",
-            gainNode: springGain,
-            connectRoute: () => {
-              eqOutNode.connect(springFilt);
-              springFilt.connect(springDelay);
-              springFB.connect(springGain);
-              springGain.connect(audioCtx.destination);
-            },
-            disconnectRoute: () => {
-              try {
-                eqOutNode.disconnect(springFilt);
-                springGain.disconnect();
-              } catch (e) {}
-            },
-          },
-          {
-            enId: "lofiEnable",
-            mixId: "lofiMix",
-            valId: "lofiVal",
-            gainNode: lofiGain,
-            connectRoute: () => {
-              eqOutNode.connect(lofiDel);
-              lofiDel.connect(lofiFilt);
-              lofiFilt.connect(lofiDist);
-              lofiDist.connect(lofiGain);
-              lofiGain.connect(audioCtx.destination);
-              lofiOsc = audioCtx.createOscillator();
-              lofiOsc.frequency.value = 3.8;
-              lofiModGain = audioCtx.createGain();
-              lofiModGain.gain.value = 0.0012;
-              lofiOsc.connect(lofiModGain);
-              lofiModGain.connect(lofiDel.delayTime);
-              lofiOsc.start();
-            },
-            disconnectRoute: () => {
-              try {
-                lofiOsc.stop();
-                lofiOsc.disconnect();
-                lofiModGain.disconnect();
-              } catch (e) {}
-              try {
-                eqOutNode.disconnect(lofiDel);
-                lofiGain.disconnect();
-              } catch (e) {}
-            },
-          },
-        ];
+        frequencies.forEach((freq) => {
+          const targetDb = preset[freq];
+          const slider = document.getElementById(`band-${freq}`);
+          const valLabel = document.getElementById(`val-${freq}`);
 
-        effectsConfig.forEach((eff) => {
-          const isChecked = document.getElementById(eff.enId).checked;
-          const mixValue = parseFloat(document.getElementById(eff.mixId).value);
-          document.getElementById(eff.valId).textContent = `${mixValue}%`;
+          if (slider) slider.value = targetDb;
+          if (valLabel)
+            valLabel.textContent = `${targetDb > 0 ? "+" : ""}${targetDb}dB`;
 
-          eff.disconnectRoute();
-          if (isChecked && mixValue > 0) {
-            eff.connectRoute();
-            eff.gainNode.gain.setValueAtTime(
-              mixValue / 100,
-              audioCtx.currentTime,
-            );
+          if (isProcessing && filters[freq]) {
+            filters[freq].gain.setValueAtTime(targetDb, audioCtx.currentTime);
           }
         });
-
-        dryGain.gain.setValueAtTime(1.0, audioCtx.currentTime);
       }
 
       function stopMicEngine() {
@@ -848,65 +556,30 @@
             const val = document.getElementById(`band-${freq}`).value;
             document.getElementById(`val-${freq}`).textContent =
               `${val > 0 ? "+" : ""}${val}dB`;
-            if (filters[freq])
+            if (isProcessing && filters[freq]) {
               filters[freq].gain.setValueAtTime(
                 parseFloat(val),
                 audioCtx.currentTime,
               );
+            }
           });
       });
 
-      const inputs = [
-        "roomMix",
-        "roomEnable",
-        "hallMix",
-        "hallEnable",
-        "slapMix",
-        "slapEnable",
-        "echoMix",
-        "echoEnable",
-        "shimmerMix",
-        "shimmerEnable",
-        "cloudMix",
-        "cloudEnable",
-        "springMix",
-        "springEnable",
-        "lofiMix",
-        "lofiEnable",
-      ];
-      inputs.forEach((id) => {
-        document.getElementById(id).addEventListener("input", updateGains);
-        document.getElementById(id).addEventListener("change", updateGains);
-      });
+      document
+        .querySelectorAll('input[name="instrumentPreset"]')
+        .forEach((radio) => {
+          radio.addEventListener("change", (e) => {
+            applyPreset(e.target.value);
+          });
+        });
 
       resetBtn.addEventListener("click", function () {
         frequencies.forEach((freq) => {
           document.getElementById(`band-${freq}`).value = 0;
           document.getElementById(`val-${freq}`).textContent = "0dB";
-          if (filters[freq])
+          if (isProcessing && filters[freq])
             filters[freq].gain.setValueAtTime(0, audioCtx.currentTime);
         });
-        [
-          "roomMix",
-          "hallMix",
-          "slapMix",
-          "echoMix",
-          "shimmerMix",
-          "cloudMix",
-          "springMix",
-          "lofiMix",
-        ].forEach((id) => (document.getElementById(id).value = 0));
-        [
-          "roomEnable",
-          "hallEnable",
-          "slapEnable",
-          "echoEnable",
-          "shimmerEnable",
-          "cloudEnable",
-          "springEnable",
-          "lofiEnable",
-        ].forEach((id) => (document.getElementById(id).checked = false));
-        updateGains();
       });
 
       micBtn.addEventListener("click", function () {
