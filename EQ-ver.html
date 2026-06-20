@@ -1,0 +1,403 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>اکولایزر استودیو زنده</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <style>
+      body {
+        font-family:
+          system-ui,
+          -apple-system,
+          sans-serif;
+      }
+      /* استایل اختصاصی برای حرکت عمودی و استاندارد اسلایدرها */
+      .vertical-slider {
+        writing-mode: vertical-lr;
+        direction: ltr;
+        vertical-align: middle;
+        transform: rotate(180deg);
+      }
+    </style>
+  </head>
+  <body
+    class="bg-slate-950 text-slate-100 min-h-screen flex flex-col items-center justify-center p-4 sm:p-8"
+  >
+    <div
+      class="bg-slate-900 p-6 sm:p-8 rounded-2xl shadow-2xl w-full max-w-3xl border border-slate-800"
+    >
+      <h1
+        class="text-xl sm:text-2xl font-bold text-center mb-2 text-emerald-400"
+      >
+        کنسول اکولایزر زنده میکروفون (Layout استودیویی)
+      </h1>
+
+      <div
+        class="mb-6 bg-slate-800/40 p-4 rounded-xl border border-slate-800 flex flex-col sm:flex-row gap-4 items-center justify-center"
+      >
+        <button
+          id="micBtn"
+          class="w-full sm:w-auto bg-emerald-600 hover:bg-emerald-500 text-slate-950 font-bold py-3 px-8 rounded-xl transition-all text-sm shadow-md cursor-pointer text-center"
+        >
+          شروع پردازش زنده میکروفون
+        </button>
+        <button
+          id="resetBtn"
+          class="w-full sm:w-auto bg-slate-800 hover:bg-slate-700 text-amber-400 border border-slate-700 font-medium py-3 px-6 rounded-xl transition-all text-sm shadow-md cursor-pointer"
+        >
+          ریست اسلایدرها (0 dB)
+        </button>
+      </div>
+
+      <audio id="forceOutput" autoplay muted playsinline class="hidden"></audio>
+
+      <div class="bg-slate-950 p-6 rounded-xl border border-slate-800/80 mb-6">
+        <div class="flex justify-between items-stretch h-80 px-1 sm:px-4">
+          <div
+            class="flex flex-col items-center justify-between flex-1 border-r border-slate-800/50 last:border-r-0"
+          >
+            <span class="text-xs font-bold tracking-wider text-emerald-400 mb-2"
+              >75Hz</span
+            >
+            <input
+              type="range"
+              id="band-75"
+              min="-20"
+              max="20"
+              value="0"
+              step="1"
+              class="vertical-slider h-48 w-4 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-emerald-400"
+            />
+            <span
+              id="val-75"
+              class="text-[11px] font-mono text-slate-400 mt-2 bg-slate-900/80 px-1.5 py-0.5 rounded border border-slate-800"
+              >0dB</span
+            >
+          </div>
+
+          <div
+            class="flex flex-col items-center justify-between flex-1 border-r border-slate-800/50 last:border-r-0"
+          >
+            <span class="text-xs font-bold tracking-wider text-emerald-400 mb-2"
+              >150Hz</span
+            >
+            <input
+              type="range"
+              id="band-150"
+              min="-20"
+              max="20"
+              value="0"
+              step="1"
+              class="vertical-slider h-48 w-4 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-emerald-400"
+            />
+            <span
+              id="val-150"
+              class="text-[11px] font-mono text-slate-400 mt-2 bg-slate-900/80 px-1.5 py-0.5 rounded border border-slate-800"
+              >0dB</span
+            >
+          </div>
+
+          <div
+            class="flex flex-col items-center justify-between flex-1 border-r border-slate-800/50 last:border-r-0"
+          >
+            <span class="text-xs font-bold tracking-wider text-emerald-400 mb-2"
+              >300Hz</span
+            >
+            <input
+              type="range"
+              id="band-300"
+              min="-20"
+              max="20"
+              value="0"
+              step="1"
+              class="vertical-slider h-48 w-4 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-emerald-400"
+            />
+            <span
+              id="val-300"
+              class="text-[11px] font-mono text-slate-400 mt-2 bg-slate-900/80 px-1.5 py-0.5 rounded border border-slate-800"
+              >0dB</span
+            >
+          </div>
+
+          <div
+            class="flex flex-col items-center justify-between flex-1 border-r border-slate-800/50 last:border-r-0"
+          >
+            <span class="text-xs font-bold tracking-wider text-emerald-400 mb-2"
+              >600Hz</span
+            >
+            <input
+              type="range"
+              id="band-600"
+              min="-20"
+              max="20"
+              value="0"
+              step="1"
+              class="vertical-slider h-48 w-4 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-emerald-400"
+            />
+            <span
+              id="val-600"
+              class="text-[11px] font-mono text-slate-400 mt-2 bg-slate-900/80 px-1.5 py-0.5 rounded border border-slate-800"
+              >0dB</span
+            >
+          </div>
+
+          <div
+            class="flex flex-col items-center justify-between flex-1 border-r border-slate-800/50 last:border-r-0"
+          >
+            <span class="text-xs font-bold tracking-wider text-emerald-400 mb-2"
+              >1.2kHz</span
+            >
+            <input
+              type="range"
+              id="band-1200"
+              min="-20"
+              max="20"
+              value="0"
+              step="1"
+              class="vertical-slider h-48 w-4 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-emerald-400"
+            />
+            <span
+              id="val-1200"
+              class="text-[11px] font-mono text-slate-400 mt-2 bg-slate-900/80 px-1.5 py-0.5 rounded border border-slate-800"
+              >0dB</span
+            >
+          </div>
+
+          <div
+            class="flex flex-col items-center justify-between flex-1 border-r border-slate-800/50 last:border-r-0"
+          >
+            <span class="text-xs font-bold tracking-wider text-emerald-400 mb-2"
+              >2.4kHz</span
+            >
+            <input
+              type="range"
+              id="band-2400"
+              min="-20"
+              max="20"
+              value="0"
+              step="1"
+              class="vertical-slider h-48 w-4 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-emerald-400"
+            />
+            <span
+              id="val-2400"
+              class="text-[11px] font-mono text-slate-400 mt-2 bg-slate-900/80 px-1.5 py-0.5 rounded border border-slate-800"
+              >0dB</span
+            >
+          </div>
+
+          <div
+            class="flex flex-col items-center justify-between flex-1 border-r border-slate-800/50 last:border-r-0"
+          >
+            <span class="text-xs font-bold tracking-wider text-emerald-400 mb-2"
+              >4.8kHz</span
+            >
+            <input
+              type="range"
+              id="band-4800"
+              min="-20"
+              max="20"
+              value="0"
+              step="1"
+              class="vertical-slider h-48 w-4 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-emerald-400"
+            />
+            <span
+              id="val-4800"
+              class="text-[11px] font-mono text-slate-400 mt-2 bg-slate-900/80 px-1.5 py-0.5 rounded border border-slate-800"
+              >0dB</span
+            >
+          </div>
+
+          <div
+            class="flex flex-col items-center justify-between flex-1 border-r border-slate-800/50 last:border-r-0"
+          >
+            <span class="text-xs font-bold tracking-wider text-emerald-400 mb-2"
+              >8kHz</span
+            >
+            <input
+              type="range"
+              id="band-8000"
+              min="-20"
+              max="20"
+              value="0"
+              step="1"
+              class="vertical-slider h-48 w-4 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-emerald-400"
+            />
+            <span
+              id="val-8000"
+              class="text-[10px] font-mono text-slate-400 mt-2 bg-slate-900/80 px-1.5 py-0.5 rounded border border-slate-800"
+              >0dB</span
+            >
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="bg-slate-800/30 p-5 rounded-xl border border-slate-800 text-sm space-y-3"
+      >
+        <h3
+          class="text-sm font-semibold text-emerald-400 border-b border-slate-700/60 pb-2 mb-3"
+        >
+          راهنمای آنالیز و مهندسی فرکانس‌ها:
+        </h3>
+        <ul class="space-y-2 text-slate-300 text-xs sm:text-sm leading-relaxed">
+          <li>
+            <strong class="text-emerald-500">75 Hz (Sub-Bass):</strong> محدوده
+            فرکانسی بسیار بم زیرین. تقویت آن به امواج ضربه‌های عمقی جان می‌دهد و
+            تضعیف آن "هووم" یا لرزش‌های اضافه محیطی کاسه ساز را می‌گیرد.
+          </li>
+          <li>
+            <strong class="text-emerald-500">150 Hz (Bass):</strong> بیس اصلی و
+            حجم بدنه. کانون انرژیِ اصلی ضربه «بم» در این محدوده است؛ افزایش آن
+            صدا را چاق‌تر و پرتر می‌کند.
+          </li>
+          <li>
+            <strong class="text-emerald-500">300 Hz (Low-Mid):</strong> محدوده
+            حساس فرکانس‌های میانی پایینی. اگر صدا گنگ، خفه یا اصطلاحاً Muddy
+            است، با کم کردن این باند می‌توانید وضوح و تفکیک طنین ساز را بالا
+            ببرید.
+          </li>
+          <li>
+            <strong class="text-emerald-500">600 Hz (Mid):</strong> بدنه
+            فرکانس‌های میانی. رزونانس و زنگِ طبیعی داخل کاسه چوبی ساز در این
+            باند قرار دارد؛ تغییر آن روی رنگ و اصالت لحن ساز اثر مستقیم دارد.
+          </li>
+          <li>
+            <strong class="text-emerald-500">1200 Hz (Mid-High):</strong> وضوحِ
+            ضربه برخورد دست یا مضراب با پوست/سیم. تقویت آن صدای تقه اولیه و
+            پانتش ضربه را مشخص‌تر می‌کند.
+          </li>
+          <li>
+            <strong class="text-emerald-500">2400 Hz (Upper-Mid):</strong> حضور
+            (Presence). این باند مسئول جلو آمدن یا عقب رفتن ساز در کل میکس است؛
+            افزایش آن ساز را زنده و نزدیک به گوش جلوه می‌دهد.
+          </li>
+          <li>
+            <strong class="text-emerald-500"
+              >4800 Hz (Presence/Sharpness):</strong
+            >
+            تیزی و شفافیت لبه‌ها. فرکانس‌های تیز ضربات کناری مچ و نواخت انگشتان
+            در این محدوده خودنمایی می‌کنند.
+          </li>
+          <li>
+            <strong class="text-emerald-500"
+              >8000 Hz (Treble/Brilliance):</strong
+            >
+            درخشندگی و خشکی صدا. صدای کششِ ریزها، صدای برخورد ناخن‌ها و جزئیات
+            بسیار ظریف، ابریشمی و هوای داخل ساز با این باند تنظیم می‌شود.
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <script>
+      const micBtn = document.getElementById("micBtn");
+      const resetBtn = document.getElementById("resetBtn");
+      const forceOutput = document.getElementById("forceOutput");
+      const frequencies = [75, 150, 300, 600, 1200, 2400, 4800, 8000];
+
+      let audioCtx = null;
+      let streamSource = null;
+      let localStream = null;
+      let filters = {};
+      let isProcessing = false;
+
+      async function startMicEngine() {
+        try {
+          if (!audioCtx) {
+            audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+          }
+          if (audioCtx.state === "suspended") {
+            await audioCtx.resume();
+          }
+
+          localStream = await navigator.mediaDevices.getUserMedia({
+            audio: {
+              echoCancellation: false,
+              noiseSuppression: false,
+              autoGainControl: false,
+            },
+          });
+
+          forceOutput.srcObject = localStream;
+          streamSource = audioCtx.createMediaStreamSource(localStream);
+          let lastNode = streamSource;
+
+          frequencies.forEach((freq, index) => {
+            const filter = audioCtx.createBiquadFilter();
+            if (index === 0) filter.type = "lowshelf";
+            else if (index === frequencies.length - 1)
+              filter.type = "highshelf";
+            else {
+              filter.type = "peaking";
+              filter.Q.value = 1.2;
+            }
+            filter.frequency.value = freq;
+            filter.gain.value = parseFloat(
+              document.getElementById(`band-${freq}`).value,
+            );
+
+            lastNode.connect(filter);
+            lastNode = filter;
+            filters[freq] = filter;
+          });
+
+          lastNode.connect(audioCtx.destination);
+
+          isProcessing = true;
+          micBtn.textContent = "قطع میکروفون";
+          micBtn.className =
+            "w-full sm:w-auto bg-red-600 hover:bg-red-500 text-white font-bold py-3 px-8 rounded-xl transition-all text-sm shadow-md cursor-pointer text-center";
+        } catch (err) {
+          alert("خطا در راه‌اندازی؛ لطفاً از اتصال امن HTTPS مطمئن شوید.");
+          console.error(err);
+        }
+      }
+
+      function stopMicEngine() {
+        if (localStream)
+          localStream.getTracks().forEach((track) => track.stop());
+        forceOutput.srcObject = null;
+        if (audioCtx)
+          audioCtx.close().then(() => {
+            audioCtx = null;
+          });
+        filters = {};
+        isProcessing = false;
+        micBtn.textContent = "شروع پردازش زنده میکروفون";
+        micBtn.className =
+          "w-full sm:w-auto bg-emerald-600 hover:bg-emerald-500 text-slate-950 font-bold py-3 px-8 rounded-xl transition-all text-sm shadow-md cursor-pointer text-center";
+      }
+
+      function updateFilterValue(freq) {
+        const slider = document.getElementById(`band-${freq}`);
+        const view = document.getElementById(`val-${freq}`);
+        if (!slider) return;
+        const val = slider.value;
+        view.textContent = `${val > 0 ? "+" : ""}${val}dB`;
+        if (filters[freq]) filters[freq].gain.value = parseFloat(val);
+      }
+
+      frequencies.forEach((freq) => {
+        document
+          .getElementById(`band-${freq}`)
+          .addEventListener("input", () => updateFilterValue(freq));
+      });
+
+      resetBtn.addEventListener("click", function () {
+        frequencies.forEach((freq) => {
+          const slider = document.getElementById(`band-${freq}`);
+          if (slider) {
+            slider.value = 0;
+            updateFilterValue(freq);
+          }
+        });
+      });
+
+      micBtn.addEventListener("click", function () {
+        if (!isProcessing) startMicEngine();
+        else stopMicEngine();
+      });
+    </script>
+  </body>
+</html>

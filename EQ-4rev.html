@@ -1,0 +1,550 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>کنسول استودیویی زنده - نسخه نهایی موبایل</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <style>
+      body {
+        font-family:
+          system-ui,
+          -apple-system,
+          sans-serif;
+      }
+      .vertical-slider {
+        writing-mode: vertical-lr;
+        direction: ltr;
+        vertical-align: middle;
+        transform: rotate(180deg);
+      }
+    </style>
+  </head>
+  <body
+    class="bg-slate-950 text-slate-100 min-h-screen flex flex-col items-center justify-center p-2 sm:p-6"
+  >
+    <div
+      class="bg-slate-900 p-4 sm:p-8 rounded-2xl shadow-2xl w-full max-w-5xl border border-slate-800"
+    >
+      <h1
+        class="text-lg sm:text-2xl font-bold text-center mb-1 text-emerald-400"
+      >
+        رک پردازش زنده استودیو (EQ + Triple Reverb)
+      </h1>
+      <p
+        class="text-center text-[10px] sm:text-xs text-amber-500 mb-6 font-medium"
+      >
+        ⚠️ حتماً هندزفری وصل کنید تا صدا سوت نکشد!
+      </p>
+
+      <div
+        class="mb-6 bg-slate-800/40 p-3 sm:p-4 rounded-xl border border-slate-800 flex flex-col sm:flex-row gap-3 items-center justify-center"
+      >
+        <button
+          id="micBtn"
+          class="w-full sm:w-auto bg-emerald-600 hover:bg-emerald-500 text-slate-950 font-bold py-3 px-8 rounded-xl transition-all text-xs sm:text-sm shadow-md cursor-pointer text-center"
+        >
+          شروع پردازش زنده میکروفون
+        </button>
+        <button
+          id="resetBtn"
+          class="w-full sm:w-auto bg-slate-800 hover:bg-slate-700 text-amber-400 border border-slate-700 font-medium py-3 px-6 rounded-xl transition-all text-xs sm:text-sm shadow-md cursor-pointer"
+        >
+          ریست تمام اسلایدرها (0 dB)
+        </button>
+      </div>
+
+      <audio id="forceOutput" autoplay muted playsinline class="hidden"></audio>
+
+      <div
+        class="grid grid-cols-1 lg:grid-cols-5 gap-6 bg-slate-950 p-4 sm:p-6 rounded-xl border border-slate-800/80 mb-6"
+      >
+        <div class="lg:col-span-3">
+          <div
+            class="text-[11px] sm:text-xs text-slate-400 font-bold mb-4 border-b border-slate-800 pb-2"
+          >
+            تنظیمات فرکانسی اکولایزر:
+          </div>
+          <div class="flex justify-between items-stretch h-60 sm:h-64 gap-1">
+            <div class="flex flex-col items-center justify-between flex-1">
+              <span
+                class="text-[10px] sm:text-[11px] font-bold text-emerald-400"
+                >75Hz</span
+              >
+              <input
+                type="range"
+                id="band-75"
+                min="-20"
+                max="20"
+                value="0"
+                step="1"
+                class="vertical-slider h-36 sm:h-40 w-3.5 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-emerald-400"
+              />
+              <span
+                id="val-75"
+                class="text-[9px] sm:text-[10px] font-mono text-slate-400 bg-slate-900 px-1 rounded"
+                >0dB</span
+              >
+            </div>
+
+            <div class="flex flex-col items-center justify-between flex-1">
+              <span
+                class="text-[10px] sm:text-[11px] font-bold text-emerald-400"
+                >150Hz</span
+              >
+              <input
+                type="range"
+                id="band-150"
+                min="-20"
+                max="20"
+                value="0"
+                step="1"
+                class="vertical-slider h-36 sm:h-40 w-3.5 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-emerald-400"
+              />
+              <span
+                id="val-150"
+                class="text-[9px] sm:text-[10px] font-mono text-slate-400 bg-slate-900 px-1 rounded"
+                >0dB</span
+              >
+            </div>
+
+            <div class="flex flex-col items-center justify-between flex-1">
+              <span
+                class="text-[10px] sm:text-[11px] font-bold text-emerald-400"
+                >300Hz</span
+              >
+              <input
+                type="range"
+                id="band-300"
+                min="-20"
+                max="20"
+                value="0"
+                step="1"
+                class="vertical-slider h-36 sm:h-40 w-3.5 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-emerald-400"
+              />
+              <span
+                id="val-300"
+                class="text-[9px] sm:text-[10px] font-mono text-slate-400 bg-slate-900 px-1 rounded"
+                >0dB</span
+              >
+            </div>
+
+            <div class="flex flex-col items-center justify-between flex-1">
+              <span
+                class="text-[10px] sm:text-[11px] font-bold text-emerald-400"
+                >600Hz</span
+              >
+              <input
+                type="range"
+                id="band-600"
+                min="-20"
+                max="20"
+                value="0"
+                step="1"
+                class="vertical-slider h-36 sm:h-40 w-3.5 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-emerald-400"
+              />
+              <span
+                id="val-600"
+                class="text-[9px] sm:text-[10px] font-mono text-slate-400 bg-slate-900 px-1 rounded"
+                >0dB</span
+              >
+            </div>
+
+            <div class="flex flex-col items-center justify-between flex-1">
+              <span
+                class="text-[10px] sm:text-[11px] font-bold text-emerald-400"
+                >1.2k</span
+              >
+              <input
+                type="range"
+                id="band-1200"
+                min="-20"
+                max="20"
+                value="0"
+                step="1"
+                class="vertical-slider h-36 sm:h-40 w-3.5 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-emerald-400"
+              />
+              <span
+                id="val-1200"
+                class="text-[9px] sm:text-[10px] font-mono text-slate-400 bg-slate-900 px-1 rounded"
+                >0dB</span
+              >
+            </div>
+
+            <div class="flex flex-col items-center justify-between flex-1">
+              <span
+                class="text-[10px] sm:text-[11px] font-bold text-emerald-400"
+                >2.4k</span
+              >
+              <input
+                type="range"
+                id="band-2400"
+                min="-20"
+                max="20"
+                value="0"
+                step="1"
+                class="vertical-slider h-36 sm:h-40 w-3.5 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-emerald-400"
+              />
+              <span
+                id="val-2400"
+                class="text-[9px] sm:text-[10px] font-mono text-slate-400 bg-slate-900 px-1 rounded"
+                >0dB</span
+              >
+            </div>
+
+            <div class="flex flex-col items-center justify-between flex-1">
+              <span
+                class="text-[10px] sm:text-[11px] font-bold text-emerald-400"
+                >4.8k</span
+              >
+              <input
+                type="range"
+                id="band-4800"
+                min="-20"
+                max="20"
+                value="0"
+                step="1"
+                class="vertical-slider h-36 sm:h-40 w-3.5 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-emerald-400"
+              />
+              <span
+                id="val-4800"
+                class="text-[9px] sm:text-[10px] font-mono text-slate-400 bg-slate-900 px-1 rounded"
+                >0dB</span
+              >
+            </div>
+
+            <div class="flex flex-col items-center justify-between flex-1">
+              <span
+                class="text-[10px] sm:text-[11px] font-bold text-emerald-400"
+                >8kHz</span
+              >
+              <input
+                type="range"
+                id="band-8000"
+                min="-20"
+                max="20"
+                value="0"
+                step="1"
+                class="vertical-slider h-36 sm:h-40 w-3.5 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-emerald-400"
+              />
+              <span
+                id="val-8000"
+                class="text-[9px] sm:text-[10px] font-mono text-slate-400 bg-slate-900 px-1 rounded"
+                >0dB</span
+              >
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="lg:col-span-2 border-t lg:border-t-0 lg:border-r border-slate-800 pt-5 lg:pt-0 lg:pr-6"
+        >
+          <div
+            class="text-[11px] sm:text-xs text-amber-400 font-bold mb-4 border-b border-slate-800 pb-2"
+          >
+            پردازنده‌های پژواک صوتی:
+          </div>
+          <div class="flex justify-around items-stretch h-56 sm:h-64 gap-2">
+            <div
+              class="flex flex-col items-center justify-between flex-1 bg-slate-900/40 py-3 rounded-xl border border-slate-800/60"
+            >
+              <label
+                class="flex flex-col items-center gap-1.5 cursor-pointer select-none"
+              >
+                <input
+                  type="checkbox"
+                  id="roomEnable"
+                  checked
+                  class="w-4 h-4 rounded text-amber-500 bg-slate-800 border-slate-700 accent-amber-500"
+                />
+                <span class="text-[10px] sm:text-xs font-bold text-slate-300"
+                  >اتاق (Room)</span
+                >
+              </label>
+              <input
+                type="range"
+                id="roomMix"
+                min="0"
+                max="100"
+                value="25"
+                class="vertical-slider h-28 sm:h-36 w-4 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-amber-500"
+              />
+              <span
+                id="roomVal"
+                class="text-[10px] font-mono text-amber-400 bg-slate-950 px-1.5 py-0.5 rounded"
+                >25%</span
+              >
+            </div>
+
+            <div
+              class="flex flex-col items-center justify-between flex-1 bg-slate-900/40 py-3 rounded-xl border border-slate-800/60"
+            >
+              <label
+                class="flex flex-col items-center gap-1.5 cursor-pointer select-none"
+              >
+                <input
+                  type="checkbox"
+                  id="hallEnable"
+                  class="w-4 h-4 rounded text-orange-500 bg-slate-800 border-slate-700 accent-orange-500"
+                />
+                <span class="text-[10px] sm:text-xs font-bold text-slate-300"
+                  >تالار (Hall)</span
+                >
+              </label>
+              <input
+                type="range"
+                id="hallMix"
+                min="0"
+                max="100"
+                value="35"
+                class="vertical-slider h-28 sm:h-36 w-4 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-orange-500"
+              />
+              <span
+                id="hallVal"
+                class="text-[10px] font-mono text-orange-400 bg-slate-950 px-1.5 py-0.5 rounded"
+                >35%</span
+              >
+            </div>
+
+            <div
+              class="flex flex-col items-center justify-between flex-1 bg-slate-900/40 py-3 rounded-xl border border-slate-800/60"
+            >
+              <label
+                class="flex flex-col items-center gap-1.5 cursor-pointer select-none"
+              >
+                <input
+                  type="checkbox"
+                  id="slapEnable"
+                  class="w-4 h-4 rounded text-sky-500 bg-slate-800 border-slate-700 accent-sky-500"
+                />
+                <span class="text-[10px] sm:text-xs font-bold text-slate-300"
+                  >اسلپ (Slap)</span
+                >
+              </label>
+              <input
+                type="range"
+                id="slapMix"
+                min="0"
+                max="100"
+                value="30"
+                class="vertical-slider h-28 sm:h-36 w-4 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-sky-500"
+              />
+              <span
+                id="slapVal"
+                class="text-[10px] font-mono text-sky-400 bg-slate-950 px-1.5 py-0.5 rounded"
+                >30%</span
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const micBtn = document.getElementById("micBtn");
+      const resetBtn = document.getElementById("resetBtn");
+      const forceOutput = document.getElementById("forceOutput");
+      const frequencies = [75, 150, 300, 600, 1200, 2400, 4800, 8000];
+
+      let audioCtx = null;
+      let streamSource = null;
+      let localStream = null;
+      let filters = {};
+      let isProcessing = false;
+
+      let dryGain = null;
+      let roomConvolver = null,
+        roomGain = null;
+      let hallConvolver = null,
+        hallGain = null;
+      let slapDelay = null,
+        slapFeedback = null,
+        slapGain = null;
+
+      function createImpulse(context, duration, decay) {
+        const sampleRate = context.sampleRate;
+        const length = sampleRate * duration;
+        const impulse = context.createBuffer(2, length, sampleRate);
+        for (let channel = 0; channel < impulse.numberOfChannels; channel++) {
+          const channelData = impulse.getChannelData(channel);
+          for (let i = 0; i < length; i++) {
+            channelData[i] =
+              (Math.random() * 2 - 1) * Math.pow(1 - i / length, decay);
+          }
+        }
+        return impulse;
+      }
+
+      async function startMicEngine() {
+        try {
+          if (!audioCtx)
+            audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+          if (audioCtx.state === "suspended") await audioCtx.resume();
+
+          localStream = await navigator.mediaDevices.getUserMedia({
+            audio: {
+              echoCancellation: false,
+              noiseSuppression: false,
+              autoGainControl: false,
+            },
+          });
+
+          forceOutput.srcObject = localStream;
+          streamSource = audioCtx.createMediaStreamSource(localStream);
+
+          dryGain = audioCtx.createGain();
+          dryGain.gain.value = 1.0;
+
+          roomConvolver = audioCtx.createConvolver();
+          roomConvolver.buffer = createImpulse(audioCtx, 0.8, 3.5);
+          roomGain = audioCtx.createGain();
+
+          hallConvolver = audioCtx.createConvolver();
+          hallConvolver.buffer = createImpulse(audioCtx, 3.2, 2.0);
+          hallGain = audioCtx.createGain();
+
+          slapDelay = audioCtx.createDelay();
+          slapDelay.delayTime.value = 0.095;
+          slapFeedback = audioCtx.createGain();
+          slapFeedback.gain.value = 0.15;
+          slapGain = audioCtx.createGain();
+
+          slapDelay.connect(slapFeedback);
+          slapFeedback.connect(slapDelay);
+
+          let lastNode = streamSource;
+          frequencies.forEach((freq, index) => {
+            const filter = audioCtx.createBiquadFilter();
+            if (index === 0) filter.type = "lowshelf";
+            else if (index === frequencies.length - 1)
+              filter.type = "highshelf";
+            else {
+              filter.type = "peaking";
+              filter.Q.value = 1.2;
+            }
+            filter.frequency.value = freq;
+            filter.gain.value = parseFloat(
+              document.getElementById(`band-${freq}`).value,
+            );
+            lastNode.connect(filter);
+            lastNode = filter;
+            filters[freq] = filter;
+          });
+
+          lastNode.connect(dryGain);
+
+          lastNode.connect(roomConvolver);
+          roomConvolver.connect(roomGain);
+
+          lastNode.connect(hallConvolver);
+          hallConvolver.connect(hallGain);
+
+          lastNode.connect(slapDelay);
+          slapDelay.connect(slapGain);
+
+          dryGain.connect(audioCtx.destination);
+          roomGain.connect(audioCtx.destination);
+          hallGain.connect(audioCtx.destination);
+          slapGain.connect(audioCtx.destination);
+
+          updateGains();
+
+          isProcessing = true;
+          micBtn.textContent = "قطع میکروفون";
+          micBtn.className =
+            "w-full sm:w-auto bg-red-600 hover:bg-red-500 text-white font-bold py-3 px-8 rounded-xl transition-all text-xs sm:text-sm shadow-md cursor-pointer text-center";
+        } catch (err) {
+          alert("خطا در راه‌اندازی؛ لطفاً از اتصال امن HTTPS مطمئن شوید.");
+          console.error(err);
+        }
+      }
+
+      function updateGains() {
+        if (!isProcessing) return;
+
+        const isRoom = document.getElementById("roomEnable").checked;
+        const roomVol =
+          parseFloat(document.getElementById("roomMix").value) / 100;
+        roomGain.gain.value = isRoom ? roomVol * 1.5 : 0;
+        document.getElementById("roomVal").textContent =
+          `${document.getElementById("roomMix").value}%`;
+
+        const isHall = document.getElementById("hallEnable").checked;
+        const hallVol =
+          parseFloat(document.getElementById("hallMix").value) / 100;
+        hallGain.gain.value = isHall ? hallVol * 1.2 : 0;
+        document.getElementById("hallVal").textContent =
+          `${document.getElementById("hallMix").value}%`;
+
+        const isSlap = document.getElementById("slapEnable").checked;
+        const slapVol =
+          parseFloat(document.getElementById("slapMix").value) / 100;
+        slapGain.gain.value = isSlap ? slapVol * 1.4 : 0;
+        document.getElementById("slapVal").textContent =
+          `${document.getElementById("slapMix").value}%`;
+      }
+
+      function stopMicEngine() {
+        if (localStream)
+          localStream.getTracks().forEach((track) => track.stop());
+        forceOutput.srcObject = null;
+        if (audioCtx)
+          audioCtx.close().then(() => {
+            audioCtx = null;
+          });
+        filters = {};
+        isProcessing = false;
+        micBtn.textContent = "شروع پردازش زنده میکروفون";
+        micBtn.className =
+          "w-full sm:w-auto bg-emerald-600 hover:bg-emerald-500 text-slate-950 font-bold py-3 px-8 rounded-xl transition-all text-xs sm:text-sm shadow-md cursor-pointer text-center";
+      }
+
+      frequencies.forEach((freq) => {
+        document
+          .getElementById(`band-${freq}`)
+          .addEventListener("input", () => {
+            const slider = document.getElementById(`band-${freq}`);
+            const val = slider.value;
+            document.getElementById(`val-${freq}`).textContent =
+              `${val > 0 ? "+" : ""}${val}dB`;
+            if (filters[freq]) filters[freq].gain.value = parseFloat(val);
+          });
+      });
+
+      [
+        "roomMix",
+        "roomEnable",
+        "hallMix",
+        "hallEnable",
+        "slapMix",
+        "slapEnable",
+      ].forEach((id) => {
+        document.getElementById(id).addEventListener("input", updateGains);
+        document.getElementById(id).addEventListener("change", updateGains);
+      });
+
+      resetBtn.addEventListener("click", function () {
+        frequencies.forEach((freq) => {
+          const slider = document.getElementById(`band-${freq}`);
+          if (slider) {
+            slider.value = 0;
+            document.getElementById(`val-${freq}`).textContent = "0dB";
+            if (filters[freq]) filters[freq].gain.value = 0;
+          }
+        });
+        document.getElementById("roomMix").value = 25;
+        document.getElementById("hallMix").value = 35;
+        document.getElementById("slapMix").value = 30;
+        document.getElementById("roomEnable").checked = true;
+        document.getElementById("hallEnable").checked = false;
+        document.getElementById("slapEnable").checked = false;
+        updateGains();
+      });
+
+      micBtn.addEventListener("click", function () {
+        if (!isProcessing) startMicEngine();
+        else stopMicEngine();
+      });
+    </script>
+  </body>
+</html>
