@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>رک استودیویی اصلاح‌شده - ۸ باند و ۸ افکت</title>
+    <title>رک فوق‌سریع استودیو - تأخیر صفر</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <style>
       body {
@@ -29,12 +29,12 @@
       <h1
         class="text-xl sm:text-2xl font-bold text-center mb-1 text-emerald-400 font-mono"
       >
-        رک صوتی ارشد (اصلاح تداخل ریورب‌ها)
+        رک صوتی فوق‌سریع (بدون تأخیر - ویژه ساز)
       </h1>
       <p
         class="text-center text-[10px] sm:text-xs text-amber-500 mb-6 font-medium"
       >
-        ⚠️ حتماً هندزفری یا هدفون وصل کنید تا صدا سوت نکشد!
+        ⚠️ حتماً از هدفون استفاده کنید تا از فیدبک و سوت صدا جلوگیری شود.
       </p>
 
       <div
@@ -71,8 +71,8 @@
               <input
                 type="range"
                 id="band-75"
-                min="-20"
-                max="20"
+                min="-15"
+                max="15"
                 value="0"
                 step="1"
                 class="vertical-slider h-32 sm:h-36 w-3.5 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-emerald-400"
@@ -88,8 +88,8 @@
               <input
                 type="range"
                 id="band-150"
-                min="-20"
-                max="20"
+                min="-15"
+                max="15"
                 value="0"
                 step="1"
                 class="vertical-slider h-32 sm:h-36 w-3.5 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-emerald-400"
@@ -105,8 +105,8 @@
               <input
                 type="range"
                 id="band-300"
-                min="-20"
-                max="20"
+                min="-15"
+                max="15"
                 value="0"
                 step="1"
                 class="vertical-slider h-32 sm:h-36 w-3.5 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-emerald-400"
@@ -122,8 +122,8 @@
               <input
                 type="range"
                 id="band-600"
-                min="-20"
-                max="20"
+                min="-15"
+                max="15"
                 value="0"
                 step="1"
                 class="vertical-slider h-32 sm:h-36 w-3.5 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-emerald-400"
@@ -139,8 +139,8 @@
               <input
                 type="range"
                 id="band-1200"
-                min="-20"
-                max="20"
+                min="-15"
+                max="15"
                 value="0"
                 step="1"
                 class="vertical-slider h-32 sm:h-36 w-3.5 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-emerald-400"
@@ -156,8 +156,8 @@
               <input
                 type="range"
                 id="band-2400"
-                min="-20"
-                max="20"
+                min="-15"
+                max="15"
                 value="0"
                 step="1"
                 class="vertical-slider h-32 sm:h-36 w-3.5 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-emerald-400"
@@ -173,8 +173,8 @@
               <input
                 type="range"
                 id="band-4800"
-                min="-20"
-                max="20"
+                min="-15"
+                max="15"
                 value="0"
                 step="1"
                 class="vertical-slider h-32 sm:h-36 w-3.5 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-emerald-400"
@@ -190,8 +190,8 @@
               <input
                 type="range"
                 id="band-8000"
-                min="-20"
-                max="20"
+                min="-15"
+                max="15"
                 value="0"
                 step="1"
                 class="vertical-slider h-32 sm:h-36 w-3.5 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-emerald-400"
@@ -214,7 +214,7 @@
             <div
               class="text-[11px] sm:text-xs text-sky-400 font-bold mb-3 border-b border-slate-800 pb-2"
             >
-              ۱. فضاسازی آکوستیک و کلاسیک (Acoustic Spaces)
+              ۱. فضاسازی آکوستیک و کلاسیک (Low-Latency Spaces)
             </div>
             <div class="grid grid-cols-4 gap-2">
               <div
@@ -336,7 +336,7 @@
             <div
               class="text-[11px] sm:text-xs text-purple-400 font-bold mb-3 border-b border-slate-800 pb-2"
             >
-              ۲. پردازش‌های فانتزی و اتمسفریک (Ambient & Creative)
+              ۲. پردازش‌های فانتزی و اتمسفریک (Isolated FX)
             </div>
             <div class="grid grid-cols-4 gap-2">
               <div
@@ -466,57 +466,41 @@
         localStream = null;
       let filters = {},
         isProcessing = false,
-        dryGain = null;
+        dryGain = null,
+        eqOutNode = null;
 
-      let roomConv = null,
+      // گره‌های افکت‌ها مجهز به کانال‌های گین ایزوله مستقل
+      let roomDelay = null,
+        roomFB = null,
         roomGain = null;
-      let hallConv = null,
+      let hallDelay = null,
+        hallFB = null,
         hallGain = null;
       let slapDelay = null,
-        slapFB = null,
         slapGain = null;
-      let longDelay = null,
-        longFB = null,
-        longGain = null;
-      let shimNode = null,
+      let echoDelay = null,
+        echoFB = null,
+        echoGain = null;
+      let shimHP = null,
         shimPeak = null,
+        shimDelay = null,
+        shimFB = null,
         shimGain = null;
-      let cloudConv = null,
+      let cloudDelay = null,
+        cloudFB = null,
         cloudGain = null;
-      let springConv = null,
+      let springFilt = null,
+        springDelay = null,
+        springFB = null,
         springGain = null;
       let lofiFilt = null,
         lofiDist = null,
         lofiGain = null,
-        lofiMod = null,
+        lofiOsc = null,
         lofiModGain = null,
         lofiDel = null;
 
-      function createImpulse(context, duration, decay, isSpring = false) {
-        const rate = context.sampleRate;
-        const length = rate * duration;
-        const buffer = context.createBuffer(2, length, rate);
-        for (let c = 0; c < 2; c++) {
-          const data = buffer.getChannelData(c);
-          for (let i = 0; i < length; i++) {
-            const t = i / rate;
-            if (isSpring) {
-              const res =
-                Math.sin(2 * Math.PI * 140 * t) *
-                Math.sin(2 * Math.PI * 380 * t);
-              data[i] =
-                (Math.random() * 1.4 - 0.7) * Math.pow(1 - i / length, 4.0) +
-                res * Math.pow(1 - i / length, 2.5) * 0.22;
-            } else {
-              data[i] =
-                (Math.random() * 2 - 1) * Math.pow(1 - i / length, decay);
-            }
-          }
-        }
-        return buffer;
-      }
-
-      function makeDistCurve(amount = 35) {
+      function makeDistCurve(amount = 25) {
         const curve = new Float32Array(44100);
         const deg = Math.PI / 180;
         for (let i = 0; i < 44100; ++i) {
@@ -529,9 +513,10 @@
 
       async function startMicEngine() {
         try {
-          if (!audioCtx)
-            audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-          if (audioCtx.state === "suspended") await audioCtx.resume();
+          // تنظیم بهینه بافر روی حالت اینترکتیو جهت کاهش تاخیر به نزدیک صفر
+          audioCtx = new (window.AudioContext || window.webkitAudioContext)({
+            latencyHint: "interactive",
+          });
 
           localStream = await navigator.mediaDevices.getUserMedia({
             audio: {
@@ -545,71 +530,97 @@
           streamSource = audioCtx.createMediaStreamSource(localStream);
           dryGain = audioCtx.createGain();
 
-          roomConv = audioCtx.createConvolver();
-          roomConv.buffer = createImpulse(audioCtx, 0.8, 3.8);
+          // ساختارهای شبیه‌ساز صوتی فوق سبک خطی جایگزین convolverها:
+          // ۱. اتاق (کوتاه و سریع)
+          roomDelay = audioCtx.createDelay();
+          roomDelay.delayTime.value = 0.035;
+          roomFB = audioCtx.createGain();
+          roomFB.gain.value = 0.35;
           roomGain = audioCtx.createGain();
           roomGain.gain.value = 0;
+          roomDelay.connect(roomFB);
+          roomFB.connect(roomDelay);
 
-          hallConv = audioCtx.createConvolver();
-          hallConv.buffer = createImpulse(audioCtx, 3.0, 2.2);
+          // ۲. تالار (وسیع با ماندگاری بالا)
+          hallDelay = audioCtx.createDelay();
+          hallDelay.delayTime.value = 0.085;
+          hallFB = audioCtx.createGain();
+          hallFB.gain.value = 0.65;
           hallGain = audioCtx.createGain();
           hallGain.gain.value = 0;
+          hallDelay.connect(hallFB);
+          hallFB.connect(hallDelay);
 
+          // ۳. اسلپ بک
           slapDelay = audioCtx.createDelay();
-          slapDelay.delayTime.value = 0.095;
-          slapFB = audioCtx.createGain();
-          slapFB.gain.value = 0.15;
+          slapDelay.delayTime.value = 0.09;
           slapGain = audioCtx.createGain();
           slapGain.gain.value = 0;
-          slapDelay.connect(slapFB);
-          slapFB.connect(slapDelay);
 
-          longDelay = audioCtx.createDelay();
-          longDelay.delayTime.value = 0.42;
-          longFB = audioCtx.createGain();
-          longFB.gain.value = 0.45;
-          longGain = audioCtx.createGain();
-          longGain.gain.value = 0;
-          longDelay.connect(longFB);
-          longFB.connect(longDelay);
+          // ۴. اکو طولانی استودیویی
+          echoDelay = audioCtx.createDelay();
+          echoDelay.delayTime.value = 0.38;
+          echoFB = audioCtx.createGain();
+          echoFB.gain.value = 0.45;
+          echoGain = audioCtx.createGain();
+          echoGain.gain.value = 0;
+          echoDelay.connect(echoFB);
+          echoFB.connect(echoDelay);
 
-          shimNode = audioCtx.createBiquadFilter();
-          shimNode.type = "highpass";
-          shimNode.frequency.value = 4600;
+          // ۵. شیمر
+          shimHP = audioCtx.createBiquadFilter();
+          shimHP.type = "highpass";
+          shimHP.frequency.value = 3500;
           shimPeak = audioCtx.createBiquadFilter();
           shimPeak.type = "peaking";
-          shimPeak.frequency.value = 7600;
-          shimPeak.gain.value = 16;
+          shimPeak.frequency.value = 7000;
+          shimPeak.gain.value = 12;
+          shimDelay = audioCtx.createDelay();
+          shimDelay.delayTime.value = 0.12;
+          shimFB = audioCtx.createGain();
+          shimFB.gain.value = 0.5;
           shimGain = audioCtx.createGain();
           shimGain.gain.value = 0;
+          shimDelay.connect(shimFB);
+          shimFB.connect(shimDelay);
 
-          cloudConv = audioCtx.createConvolver();
-          cloudConv.buffer = createImpulse(audioCtx, 7.0, 1.4);
+          // ۶. کلاود رویایی عمیق
+          cloudDelay = audioCtx.createDelay();
+          cloudDelay.delayTime.value = 0.18;
+          cloudFB = audioCtx.createGain();
+          cloudFB.gain.value = 0.75;
           cloudGain = audioCtx.createGain();
           cloudGain.gain.value = 0;
+          cloudDelay.connect(cloudFB);
+          cloudFB.connect(cloudDelay);
 
-          springConv = audioCtx.createConvolver();
-          springConv.buffer = createImpulse(audioCtx, 2.2, 0, true);
+          // ۷. اسپرینگ (فنر متالیک زنده)
+          springFilt = audioCtx.createBiquadFilter();
+          springFilt.type = "peaking";
+          springFilt.frequency.value = 220;
+          springFilt.Q.value = 4;
+          springFilt.gain.value = 8;
+          springDelay = audioCtx.createDelay();
+          springDelay.delayTime.value = 0.045;
+          springFB = audioCtx.createGain();
+          springFB.gain.value = 0.55;
           springGain = audioCtx.createGain();
           springGain.gain.value = 0;
+          springDelay.connect(springFB);
+          springFB.connect(springDelay);
 
+          // ۸. لوفی رادیویی ایزوله
           lofiFilt = audioCtx.createBiquadFilter();
           lofiFilt.type = "bandpass";
-          lofiFilt.frequency.value = 1550;
+          lofiFilt.frequency.value = 1400;
           lofiDist = audioCtx.createWaveShaper();
-          lofiDist.curve = makeDistCurve(40);
+          lofiDist.curve = makeDistCurve(25);
           lofiGain = audioCtx.createGain();
           lofiGain.gain.value = 0;
           lofiDel = audioCtx.createDelay();
           lofiDel.delayTime.value = 0.005;
-          lofiMod = audioCtx.createOscillator();
-          lofiMod.frequency.value = 3.6;
-          lofiModGain = audioCtx.createGain();
-          lofiModGain.gain.value = 0.002;
-          lofiMod.connect(lofiModGain);
-          lofiModGain.connect(lofiDel.delayTime);
-          lofiMod.start();
 
+          // اتصال فیلترهای سری اکولایزر ۸ بانده
           let lastNode = streamSource;
           frequencies.forEach((freq, index) => {
             const filter = audioCtx.createBiquadFilter();
@@ -618,7 +629,7 @@
               filter.type = "highshelf";
             else {
               filter.type = "peaking";
-              filter.Q.value = 1.2;
+              filter.Q.value = 1.1;
             }
             filter.frequency.value = freq;
             filter.gain.value = parseFloat(
@@ -629,38 +640,11 @@
             filters[freq] = filter;
           });
 
-          lastNode.connect(dryGain);
-          lastNode.connect(roomConv);
-          roomConv.connect(roomGain);
-          lastNode.connect(hallConv);
-          hallConv.connect(hallGain);
-          lastNode.connect(slapDelay);
-          slapDelay.connect(slapGain);
-          lastNode.connect(longDelay);
-          longDelay.connect(longGain);
+          eqOutNode = lastNode; // گره پایانی اکولایزر آماده انشعاب موازی است
 
-          lastNode.connect(shimNode);
-          shimNode.connect(shimPeak);
-          shimPeak.connect(shimGain);
-          lastNode.connect(cloudConv);
-          cloudConv.connect(cloudGain);
-          lastNode.connect(springConv);
-          springConv.connect(springGain);
-          lastNode.connect(lofiDel);
-          lofiDel.connect(lofiFilt);
-          lofiFilt.connect(lofiDist);
-          lofiDist.connect(lofiGain);
-
-          const dest = audioCtx.destination;
-          dryGain.connect(dest);
-          roomGain.connect(dest);
-          hallGain.connect(dest);
-          slapGain.connect(dest);
-          longGain.connect(dest);
-          shimGain.connect(dest);
-          cloudGain.connect(dest);
-          springGain.connect(dest);
-          lofiGain.connect(dest);
+          // اتصال کانال مستقیم به خروجی اصلی دستگاه
+          eqOutNode.connect(dryGain);
+          dryGain.connect(audioCtx.destination);
 
           updateGains();
           isProcessing = true;
@@ -668,9 +652,7 @@
           micBtn.className =
             "w-full sm:w-auto bg-red-600 hover:bg-red-500 text-white font-bold py-3 px-8 rounded-xl transition-all text-xs sm:text-sm shadow-md cursor-pointer text-center";
         } catch (err) {
-          alert(
-            "خطا در فعال‌سازی؛ اتصال وب‌سایت باید روی پروتکل امن HTTPS باشد.",
-          );
+          alert("خطا در اجرا؛ اتصال باید روی وب‌سایت امن HTTPS باشد.");
           console.error(err);
         }
       }
@@ -678,92 +660,193 @@
       function updateGains() {
         if (!isProcessing) return;
 
-        const effects = [
+        // ساختار چک کننده وضعیت لایو دکمه‌ها و اتصالات صوتی متناظر
+        const effectsConfig = [
           {
-            en: "roomEnable",
-            mix: "roomMix",
-            gain: roomGain,
+            enId: "roomEnable",
+            mixId: "roomMix",
             valId: "roomVal",
-            mult: 1.4,
+            gainNode: roomGain,
+            connectRoute: () => {
+              eqOutNode.connect(roomDelay);
+              roomFB.connect(roomGain);
+              roomGain.connect(audioCtx.destination);
+            },
+            disconnectRoute: () => {
+              try {
+                eqOutNode.disconnect(roomDelay);
+                roomFB.disconnect(roomGain);
+                roomGain.disconnect();
+              } catch (e) {}
+            },
           },
           {
-            en: "hallEnable",
-            mix: "hallMix",
-            gain: hallGain,
+            enId: "hallEnable",
+            mixId: "hallMix",
             valId: "hallVal",
-            mult: 1.2,
+            gainNode: hallGain,
+            connectRoute: () => {
+              eqOutNode.connect(hallDelay);
+              hallFB.connect(hallGain);
+              hallGain.connect(audioCtx.destination);
+            },
+            disconnectRoute: () => {
+              try {
+                eqOutNode.disconnect(hallDelay);
+                hallFB.disconnect(hallGain);
+                hallGain.disconnect();
+              } catch (e) {}
+            },
           },
           {
-            en: "slapEnable",
-            mix: "slapMix",
-            gain: slapGain,
+            enId: "slapEnable",
+            mixId: "slapMix",
             valId: "slapVal",
-            mult: 1.3,
+            gainNode: slapGain,
+            connectRoute: () => {
+              eqOutNode.connect(slapDelay);
+              slapDelay.connect(slapGain);
+              slapGain.connect(audioCtx.destination);
+            },
+            disconnectRoute: () => {
+              try {
+                eqOutNode.disconnect(slapDelay);
+                slapDelay.disconnect(slapGain);
+                slapGain.disconnect();
+              } catch (e) {}
+            },
           },
           {
-            en: "echoEnable",
-            mix: "echoMix",
-            gain: longGain,
+            enId: "echoEnable",
+            mixId: "echoMix",
             valId: "echoVal",
-            mult: 1.2,
+            gainNode: echoGain,
+            connectRoute: () => {
+              eqOutNode.connect(echoDelay);
+              echoFB.connect(echoGain);
+              echoGain.connect(audioCtx.destination);
+            },
+            disconnectRoute: () => {
+              try {
+                eqOutNode.disconnect(echoDelay);
+                echoFB.disconnect(echoGain);
+                echoGain.disconnect();
+              } catch (e) {}
+            },
           },
           {
-            en: "shimmerEnable",
-            mix: "shimmerMix",
-            gain: shimGain,
+            enId: "shimmerEnable",
+            mixId: "shimmerMix",
             valId: "shimmerVal",
-            mult: 2.2,
+            gainNode: shimGain,
+            connectRoute: () => {
+              eqOutNode.connect(shimHP);
+              shimHP.connect(shimPeak);
+              shimPeak.connect(shimDelay);
+              shimFB.connect(shimGain);
+              shimGain.connect(audioCtx.destination);
+            },
+            disconnectRoute: () => {
+              try {
+                eqOutNode.disconnect(shimHP);
+                shimGain.disconnect();
+              } catch (e) {}
+            },
           },
           {
-            en: "cloudEnable",
-            mix: "cloudMix",
-            gain: cloudGain,
+            enId: "cloudEnable",
+            mixId: "cloudMix",
             valId: "cloudVal",
-            mult: 1.5,
+            gainNode: cloudGain,
+            connectRoute: () => {
+              eqOutNode.connect(cloudDelay);
+              cloudFB.connect(cloudGain);
+              cloudGain.connect(audioCtx.destination);
+            },
+            disconnectRoute: () => {
+              try {
+                eqOutNode.disconnect(cloudDelay);
+                cloudFB.disconnect(cloudGain);
+                cloudGain.disconnect();
+              } catch (e) {}
+            },
           },
           {
-            en: "springEnable",
-            mix: "springMix",
-            gain: springGain,
+            enId: "springEnable",
+            mixId: "springMix",
             valId: "springVal",
-            mult: 1.5,
+            gainNode: springGain,
+            connectRoute: () => {
+              eqOutNode.connect(springFilt);
+              springFilt.connect(springDelay);
+              springFB.connect(springGain);
+              springGain.connect(audioCtx.destination);
+            },
+            disconnectRoute: () => {
+              try {
+                eqOutNode.disconnect(springFilt);
+                springGain.disconnect();
+              } catch (e) {}
+            },
           },
           {
-            en: "lofiEnable",
-            mix: "lofiMix",
-            gain: lofiGain,
+            enId: "lofiEnable",
+            mixId: "lofiMix",
             valId: "lofiVal",
-            mult: 1.3,
+            gainNode: lofiGain,
+            connectRoute: () => {
+              eqOutNode.connect(lofiDel);
+              lofiDel.connect(lofiFilt);
+              lofiFilt.connect(lofiDist);
+              lofiDist.connect(lofiGain);
+              lofiGain.connect(audioCtx.destination);
+              lofiOsc = audioCtx.createOscillator();
+              lofiOsc.frequency.value = 4.2;
+              lofiModGain = audioCtx.createGain();
+              lofiModGain.gain.value = 0.0015;
+              lofiOsc.connect(lofiModGain);
+              lofiModGain.connect(lofiDel.delayTime);
+              lofiOsc.start();
+            },
+            disconnectRoute: () => {
+              try {
+                lofiOsc.stop();
+                lofiOsc.disconnect();
+                lofiModGain.disconnect();
+              } catch (e) {}
+              try {
+                eqOutNode.disconnect(lofiDel);
+                lofiGain.disconnect();
+              } catch (e) {}
+            },
           },
         ];
 
-        let activeWetSum = 0;
-        effects.forEach((eff) => {
-          const isEnabled = document.getElementById(eff.en).checked;
-          const mixVal = parseFloat(document.getElementById(eff.mix).value);
-          document.getElementById(eff.valId).textContent = `${mixVal}%`;
+        effectsConfig.forEach((eff) => {
+          const isChecked = document.getElementById(eff.enId).checked;
+          const mixValue = parseFloat(document.getElementById(eff.mixId).value);
+          document.getElementById(eff.valId).textContent = `${mixValue}%`;
 
-          // اصلاح کلیدی: در صورت خاموش بودن تیک، گین کاملاً صفر می‌شود تا نشتی صدا برطرف شود
-          if (isEnabled && mixVal > 0) {
-            eff.gain.value = (mixVal / 100) * eff.mult;
-            activeWetSum += mixVal / 100;
-          } else {
-            eff.gain.value = 0;
+          // گره‌ها فقط در صورت فعال بودن فیزیکی متصل می‌شوند تا نویز یا واو-واو پس‌زمینه ایجاد نکنند
+          eff.disconnectRoute();
+          if (isChecked && mixValue > 0) {
+            eff.connectRoute();
+            eff.gainNode.gain.setValueAtTime(
+              mixValue / 100,
+              audioCtx.currentTime,
+            );
           }
         });
 
-        // وقتی هیچ ریوربی فعال نیست، صدای مستقیم روی ۱۰۰ درصد کامل (1.0) قرار می‌گیرد
-        dryGain.gain.value = Math.max(0.4, 1.0 - activeWetSum * 0.25);
+        dryGain.gain.setValueAtTime(1.0, audioCtx.currentTime);
       }
 
       function stopMicEngine() {
         if (localStream) localStream.getTracks().forEach((t) => t.stop());
         forceOutput.srcObject = null;
-        if (lofiMod)
-          try {
-            lofiMod.stop();
-          } catch (e) {}
-        if (audioCtx) audioCtx.close().then(() => (audioCtx = null));
+        if (audioCtx) {
+          audioCtx.close().then(() => (audioCtx = null));
+        }
         filters = {};
         isProcessing = false;
         micBtn.textContent = "شروع پردازش زنده میکروفون";
@@ -775,11 +858,14 @@
         document
           .getElementById(`band-${freq}`)
           .addEventListener("input", () => {
-            const slider = document.getElementById(`band-${freq}`);
-            const val = slider.value;
+            const val = document.getElementById(`band-${freq}`).value;
             document.getElementById(`val-${freq}`).textContent =
               `${val > 0 ? "+" : ""}${val}dB`;
-            if (filters[freq]) filters[freq].gain.value = parseFloat(val);
+            if (filters[freq])
+              filters[freq].gain.setValueAtTime(
+                parseFloat(val),
+                audioCtx.currentTime,
+              );
           });
       });
 
@@ -808,14 +894,12 @@
 
       resetBtn.addEventListener("click", function () {
         frequencies.forEach((freq) => {
-          const slider = document.getElementById(`band-${freq}`);
-          if (slider) {
-            slider.value = 0;
-            document.getElementById(`val-${freq}`).textContent = "0dB";
-            if (filters[freq]) filters[freq].gain.value = 0;
-          }
+          document.getElementById(`band-${freq}`).value = 0;
+          document.getElementById(`val-${freq}`).textContent = "0dB";
+          if (filters[freq])
+            filters[freq].gain.setValueAtTime(0, audioCtx.currentTime);
         });
-        const mixIds = [
+        [
           "roomMix",
           "hallMix",
           "slapMix",
@@ -824,8 +908,8 @@
           "cloudMix",
           "springMix",
           "lofiMix",
-        ];
-        const enIds = [
+        ].forEach((id) => (document.getElementById(id).value = 0));
+        [
           "roomEnable",
           "hallEnable",
           "slapEnable",
@@ -834,9 +918,7 @@
           "cloudEnable",
           "springEnable",
           "lofiEnable",
-        ];
-        mixIds.forEach((id) => (document.getElementById(id).value = 0));
-        enIds.forEach((id) => (document.getElementById(id).checked = false));
+        ].forEach((id) => (document.getElementById(id).checked = false));
         updateGains();
       });
 
