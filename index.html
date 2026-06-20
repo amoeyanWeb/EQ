@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>رک استودیویی دسته‌بندی شده - ۸ باند و ۸ افکت</title>
+    <title>رک استودیویی اصلاح‌شده - ۸ باند و ۸ افکت</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <style>
       body {
@@ -29,7 +29,7 @@
       <h1
         class="text-xl sm:text-2xl font-bold text-center mb-1 text-emerald-400 font-mono"
       >
-        رک صوتی ارشد (تفکیک دو گروه افکت)
+        رک صوتی ارشد (اصلاح تداخل ریورب‌ها)
       </h1>
       <p
         class="text-center text-[10px] sm:text-xs text-amber-500 mb-6 font-medium"
@@ -548,16 +548,19 @@
           roomConv = audioCtx.createConvolver();
           roomConv.buffer = createImpulse(audioCtx, 0.8, 3.8);
           roomGain = audioCtx.createGain();
+          roomGain.gain.value = 0;
 
           hallConv = audioCtx.createConvolver();
           hallConv.buffer = createImpulse(audioCtx, 3.0, 2.2);
           hallGain = audioCtx.createGain();
+          hallGain.gain.value = 0;
 
           slapDelay = audioCtx.createDelay();
           slapDelay.delayTime.value = 0.095;
           slapFB = audioCtx.createGain();
           slapFB.gain.value = 0.15;
           slapGain = audioCtx.createGain();
+          slapGain.gain.value = 0;
           slapDelay.connect(slapFB);
           slapFB.connect(slapDelay);
 
@@ -566,6 +569,7 @@
           longFB = audioCtx.createGain();
           longFB.gain.value = 0.45;
           longGain = audioCtx.createGain();
+          longGain.gain.value = 0;
           longDelay.connect(longFB);
           longFB.connect(longDelay);
 
@@ -577,14 +581,17 @@
           shimPeak.frequency.value = 7600;
           shimPeak.gain.value = 16;
           shimGain = audioCtx.createGain();
+          shimGain.gain.value = 0;
 
           cloudConv = audioCtx.createConvolver();
           cloudConv.buffer = createImpulse(audioCtx, 7.0, 1.4);
           cloudGain = audioCtx.createGain();
+          cloudGain.gain.value = 0;
 
           springConv = audioCtx.createConvolver();
           springConv.buffer = createImpulse(audioCtx, 2.2, 0, true);
           springGain = audioCtx.createGain();
+          springGain.gain.value = 0;
 
           lofiFilt = audioCtx.createBiquadFilter();
           lofiFilt.type = "bandpass";
@@ -592,6 +599,7 @@
           lofiDist = audioCtx.createWaveShaper();
           lofiDist.curve = makeDistCurve(40);
           lofiGain = audioCtx.createGain();
+          lofiGain.gain.value = 0;
           lofiDel = audioCtx.createDelay();
           lofiDel.delayTime.value = 0.005;
           lofiMod = audioCtx.createOscillator();
@@ -735,7 +743,8 @@
           const mixVal = parseFloat(document.getElementById(eff.mix).value);
           document.getElementById(eff.valId).textContent = `${mixVal}%`;
 
-          if (isEnabled) {
+          // اصلاح کلیدی: در صورت خاموش بودن تیک، گین کاملاً صفر می‌شود تا نشتی صدا برطرف شود
+          if (isEnabled && mixVal > 0) {
             eff.gain.value = (mixVal / 100) * eff.mult;
             activeWetSum += mixVal / 100;
           } else {
@@ -743,7 +752,8 @@
           }
         });
 
-        dryGain.gain.value = Math.max(0.3, 1.0 - activeWetSum * 0.25);
+        // وقتی هیچ ریوربی فعال نیست، صدای مستقیم روی ۱۰۰ درصد کامل (1.0) قرار می‌گیرد
+        dryGain.gain.value = Math.max(0.4, 1.0 - activeWetSum * 0.25);
       }
 
       function stopMicEngine() {
