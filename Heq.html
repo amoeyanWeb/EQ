@@ -1,0 +1,322 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>اکولایزر ۸ بانده اختصاصی</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <style>
+      body {
+        font-family:
+          system-ui,
+          -apple-system,
+          sans-serif;
+      }
+    </style>
+  </head>
+  <body
+    class="bg-slate-950 text-slate-100 min-h-screen flex items-center justify-center p-4"
+  >
+    <div
+      class="bg-slate-900 p-6 sm:p-8 rounded-2xl shadow-2xl w-full max-w-xl border border-slate-800"
+    >
+      <h1
+        class="text-xl sm:text-2xl font-bold text-center mb-6 text-emerald-400"
+      >
+        اکولایزر صوتی ۸ بانده حرفه‌ای
+      </h1>
+
+      <div
+        class="mb-6 bg-slate-800/50 p-4 rounded-xl border border-slate-700/50"
+      >
+        <label class="block text-xs sm:text-sm font-medium mb-3 text-slate-400"
+          >فایل صوتی خود را انتخاب کنید (WAV, MP3, ...):</label
+        >
+        <input
+          type="file"
+          id="audioFile"
+          accept="audio/*"
+          class="w-full text-xs sm:text-sm text-slate-400 file:ml-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs sm:file:text-sm file:font-semibold file:bg-emerald-500 file:text-slate-950 hover:file:bg-emerald-400 cursor-pointer transition-all"
+        />
+      </div>
+
+      <div class="mb-8 flex justify-center">
+        <audio id="audioElement" controls class="hidden"></audio>
+        <button
+          id="playBtn"
+          disabled
+          class="w-full sm:w-auto bg-emerald-600 hover:bg-emerald-500 disabled:bg-slate-800 disabled:text-slate-600 text-slate-950 font-bold py-3 px-10 rounded-xl transition-all cursor-pointer shadow-lg disabled:cursor-not-allowed text-center"
+        >
+          ابتدا فایل را انتخاب کنید
+        </button>
+      </div>
+
+      <div
+        class="space-y-4 bg-slate-800/30 p-4 sm:p-6 rounded-xl border border-slate-800"
+      >
+        <div
+          class="flex justify-between items-center border-b border-slate-700 pb-2 mb-2"
+        >
+          <h3 class="text-sm font-semibold text-slate-300">
+            کنترل فرکانس‌ها (تفکیک اکتاو)
+          </h3>
+          <span class="text-xs text-slate-500">محدوده: ۲۰- تا ۲۰+ دسی‌بل</span>
+        </div>
+
+        <div class="grid grid-cols-1 gap-4">
+          <div
+            class="bg-slate-800/40 p-2.5 rounded-lg border border-slate-700/30"
+          >
+            <div class="flex justify-between text-xs mb-1.5">
+              <span>75 Hz (عمق باس / بم مطلق)</span
+              ><span id="val-75" class="text-emerald-400 font-mono font-bold"
+                >0 dB</span
+              >
+            </div>
+            <input
+              type="range"
+              id="band-75"
+              min="-20"
+              max="20"
+              value="0"
+              step="1"
+              class="w-full h-1.5 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-emerald-400"
+            />
+          </div>
+          <div
+            class="bg-slate-800/40 p-2.5 rounded-lg border border-slate-700/30"
+          >
+            <div class="flex justify-between text-xs mb-1.5">
+              <span>150 Hz (حجم و کوبش بدنه ساز)</span
+              ><span id="val-150" class="text-emerald-400 font-mono font-bold"
+                >0 dB</span
+              >
+            </div>
+            <input
+              type="range"
+              id="band-150"
+              min="-20"
+              max="20"
+              value="0"
+              step="1"
+              class="w-full h-1.5 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-emerald-400"
+            />
+          </div>
+          <div
+            class="bg-slate-800/40 p-2.5 rounded-lg border border-slate-700/30"
+          >
+            <div class="flex justify-between text-xs mb-1.5">
+              <span>300 Hz (فرکانس میانی پایینی / رفع گنگی)</span
+              ><span id="val-300" class="text-emerald-400 font-mono font-bold"
+                >0 dB</span
+              >
+            </div>
+            <input
+              type="range"
+              id="band-300"
+              min="-20"
+              max="20"
+              value="0"
+              step="1"
+              class="w-full h-1.5 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-emerald-400"
+            />
+          </div>
+          <div
+            class="bg-slate-800/40 p-2.5 rounded-lg border border-slate-700/30"
+          >
+            <div class="flex justify-between text-xs mb-1.5">
+              <span>600 Hz (بدنه و طنین فرکانس‌های میانی)</span
+              ><span id="val-600" class="text-emerald-400 font-mono font-bold"
+                >0 dB</span
+              >
+            </div>
+            <input
+              type="range"
+              id="band-600"
+              min="-20"
+              max="20"
+              value="0"
+              step="1"
+              class="w-full h-1.5 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-emerald-400"
+            />
+          </div>
+          <div
+            class="bg-slate-800/40 p-2.5 rounded-lg border border-slate-700/30"
+          >
+            <div class="flex justify-between text-xs mb-1.5">
+              <span>1200 Hz (وضوح ضربه اولیه انگشت / بک)</span
+              ><span id="val-1200" class="text-emerald-400 font-mono font-bold"
+                >0 dB</span
+              >
+            </div>
+            <input
+              type="range"
+              id="band-1200"
+              min="-20"
+              max="20"
+              value="0"
+              step="1"
+              class="w-full h-1.5 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-emerald-400"
+            />
+          </div>
+          <div
+            class="bg-slate-800/40 p-2.5 rounded-lg border border-slate-700/30"
+          >
+            <div class="flex justify-between text-xs mb-1.5">
+              <span>2400 Hz (برجستگی حضور صدا در میکس)</span
+              ><span id="val-2400" class="text-emerald-400 font-mono font-bold"
+                >0 dB</span
+              >
+            </div>
+            <input
+              type="range"
+              id="band-2400"
+              min="-20"
+              max="20"
+              value="0"
+              step="1"
+              class="w-full h-1.5 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-emerald-400"
+            />
+          </div>
+          <div
+            class="bg-slate-800/40 p-2.5 rounded-lg border border-slate-700/30"
+          >
+            <div class="flex justify-between text-xs mb-1.5">
+              <span>4800 Hz (شفافیت و وضوح ضربه پلنگ)</span
+              ><span id="val-4800" class="text-emerald-400 font-mono font-bold"
+                >0 dB</span
+              >
+            </div>
+            <input
+              type="range"
+              id="band-4800"
+              min="-20"
+              max="20"
+              value="0"
+              step="1"
+              class="w-full h-1.5 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-emerald-400"
+            />
+          </div>
+          <div
+            class="bg-slate-800/40 p-2.5 rounded-lg border border-slate-700/30"
+          >
+            <div class="flex justify-between text-xs mb-1.5">
+              <span>8000 Hz (تیزی، خشکی و صدای ریز ریزها)</span
+              ><span id="val-8000" class="text-emerald-400 font-mono font-bold"
+                >0 dB</span
+              >
+            </div>
+            <input
+              type="range"
+              id="band-8000"
+              min="-20"
+              max="20"
+              value="0"
+              step="1"
+              class="w-full h-1.5 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-emerald-400"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const audioFile = document.getElementById("audioFile");
+      const audioElement = document.getElementById("audioElement");
+      const playBtn = document.getElementById("playBtn");
+
+      // تعریف دقیق فرکانس‌های درخواستی شما
+      const frequencies = [75, 150, 300, 600, 1200, 2400, 4800, 8000];
+      let audioCtx = null;
+      let track = null;
+      let filters = {};
+
+      // بارگذاری هوشمند فایل و فعال‌سازی دکمه پخش
+      audioFile.addEventListener("change", function (e) {
+        const file = e.target.files[0];
+        if (file) {
+          audioElement.src = URL.createObjectURL(file);
+          playBtn.disabled = false;
+          playBtn.textContent = "پخش صدا";
+        }
+      });
+
+      // ساخت موتور پردازش سیگنال صوتی دیجیتال
+      function initAudioEngine() {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        track = audioCtx.createMediaElementSource(audioElement);
+
+        let lastNode = track;
+
+        // اتصال سری تمام فیلترها (مانند کابل‌کشی فیزیکی سخت‌افزار)
+        frequencies.forEach((freq, index) => {
+          const filter = audioCtx.createBiquadFilter();
+
+          if (index === 0) {
+            filter.type = "lowshelf"; // مدیریت یکپارچه فرکانس‌های زیر 75 هرتز
+          } else if (index === frequencies.length - 1) {
+            filter.type = "highshelf"; // مدیریت یکپارچه فرکانس‌های بالای 8000 هرتز
+          } else {
+            filter.type = "peaking"; // فیلتر زنگوله‌ای برای تغییر فرکانس‌های میانی
+            filter.Q.value = 1.2; // ضریب کیفیت برای عدم تداخل با باندهای مجاور
+          }
+
+          filter.frequency.value = freq;
+          filter.gain.value = 0; // شروع از حالت خنثی
+
+          lastNode.connect(filter);
+          lastNode = filter;
+
+          filters[freq] = filter;
+        });
+
+        // اتصال فیلتر نهایی به کارت صدا (خروجی اصلی)
+        lastNode.connect(audioCtx.destination);
+
+        // اعمال مقادیر اسلایدرها پس از رندر موتور
+        frequencies.forEach((freq) => updateFilterValue(freq));
+      }
+
+      // تابع بروزرسانی میزان دسی‌بل به صورت Real-time
+      function updateFilterValue(freq) {
+        const slider = document.getElementById(`band-${freq}`);
+        const view = document.getElementById(`val-${freq}`);
+        if (!slider || !filters[freq]) return;
+
+        const val = slider.value;
+        view.textContent = `${val > 0 ? "+" : ""}${val} dB`;
+        filters[freq].gain.value = parseFloat(val);
+      }
+
+      // گوش دادن به تغییرات اسلایدرها حین جابجایی
+      frequencies.forEach((freq) => {
+        const slider = document.getElementById(`band-${freq}`);
+        slider.addEventListener("input", () => updateFilterValue(freq));
+      });
+
+      // مدیریت پخش، توقف و رنگ دکمه‌ها
+      playBtn.addEventListener("click", function () {
+        if (!audioCtx) initAudioEngine();
+        if (audioCtx.state === "suspended") audioCtx.resume();
+
+        if (audioElement.paused) {
+          audioElement.play();
+          playBtn.textContent = "توقف صدا";
+          playBtn.classList.replace("bg-emerald-600", "bg-red-600");
+          playBtn.classList.replace("hover:bg-emerald-500", "hover:bg-red-500");
+        } else {
+          audioElement.pause();
+          playBtn.textContent = "پخش صدا";
+          playBtn.classList.replace("bg-red-600", "bg-emerald-600");
+          playBtn.classList.replace("hover:bg-red-500", "hover:bg-emerald-500");
+        }
+      });
+
+      // بازگرداندن دکمه به حالت اولیه پس از پایان موزیک
+      audioElement.addEventListener("ended", () => {
+        playBtn.textContent = "پخش صدا";
+        playBtn.classList.replace("bg-red-600", "bg-emerald-600");
+      });
+    </script>
+  </body>
+</html>
